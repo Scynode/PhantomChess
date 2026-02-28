@@ -91,7 +91,7 @@ int cont_m = 0;
 int contGames = 0 ;
 int verifElectro;
 
-/*================== Variables de salida de maquina de Estado =================*/
+/*================== State machine output variables =================*/
 int fileCommand = 0;
 int receiveInstruction = 0;
 int checkInstruction = 0;
@@ -123,7 +123,7 @@ String movementFileGlobal = "";
 bool colorChessGlobal = false;
 bool globalTurn = false;
 bool bandEndGame = false;
-/*================== Variables de salida de maquina de Estado Ejemplo=================*/
+/*================== State machine output variables Example=================*/
 
     int idReadMode = 1;
     int idSculptureMode = 2;
@@ -158,8 +158,8 @@ bool bandEndGame = false;
     int currentState;
     int currentInput;
 
-    //==============Prototipo de funciones ==========================
-    // Acciones de los estados y condiciones de transiciones
+    //==============Function prototypes ==========================
+    // State actions and transition conditions
     void stateReadMode(void);
     void stateSculptureMode(void);
     void statePlayMode(void);
@@ -190,7 +190,7 @@ bool bandEndGame = false;
     void stateUpdateFen(void);
     void stateCheckMate(void);
 
-    // Salidas asociadas a las transiciones
+    // Outputs associated with transitions
     void readMode(void);
     void sculptureMode(void);
     void playMode(void);
@@ -227,8 +227,8 @@ bool bandEndGame = false;
     void changeState(int);
 /*================================================================================================*/
 
-//=================Funciones Ajedrez=============================
-double longitud = 50; //50 para ajedrez
+//=================Chess Functions=============================
+double longitud = 50; //50 for chess
 void coordenadas(char, char, double*, double*);
 void infoChessMovement(char[], char*, char*, char*, char*, char*, int*);
 void chess_King(char, char, char, char, int, bool, char);
@@ -312,7 +312,7 @@ const char * dirName;
 int numMovement = 1;
 String movesInFile;
 
-//*------------------ Funciones para comunicacion con Novag -----------------*/
+//*------------------ Functions for communication with Novag -----------------*/
 void initGame(void);
 void sendMoveFromSerial(void);
 void recibeMove(void);
@@ -330,15 +330,15 @@ int kingB = 0;
 int receiveMovementSerial(void);
 void menu(void);
 
-/*=========================================== Funciones Sensores ===========================================*/
+/*=========================================== Sensor Functions ===========================================*/
 //Globar Variables for ChessBoard
-//byte dirSensor[6][6][6]; // Direccion de los sensores por Barra, Cuadro y Sensor
-byte dirSensor[10][10]; // Direccion de los sensores por Barra, Cuadro y Sensor
-bool muxValues [10][10][10];//Valores guardados de los  de sensores por Mux, Barra Intermedia, Barra sensores. 
-bool orderedSensorValues[10][10];//Valores en orden para mandar a processing. 
+//byte dirSensor[6][6][6]; // Sensor addresses by Bar, Square and Sensor
+byte dirSensor[10][10]; // Sensor addresses by Bar, Square and Sensor
+bool muxValues [10][10][10];//Stored values of sensors by Mux, Intermediate Bar, Sensor Bar. 
+bool orderedSensorValues[10][10];//Ordered values to send to processing. 
 bool previousSensorValures[100][5];
 
-bool muxSquaresValues[6][6][6];//Valores guardador del resultador de 5 sensores en Or por cuadro. 
+bool muxSquaresValues[6][6][6];//Stored values of the result of 5 sensors in OR per square. 
 bool orderedSquaresValues[100];
 bool valorPasadoCuadroAlu[100];
 
@@ -399,14 +399,14 @@ String textoEnviado;
 Servo myservo;
 /*================================================================================================*/
 
-//Si el mecanismo es tipo H
+//If the mechanism is H-type
      
      #if MACHINE_STYLE == ROBOT_H
       MechanismH Robot;
       CalibrationXY haloCalib;
      #endif
 
-//Si el mecanismo es de hilos
+//If the mechanism uses wires/threads
 
      #if MACHINE_STYLE == ROBOT_4THREADS
       Mechanism Robot;
@@ -591,7 +591,7 @@ void setup()
 
         //ledcDetachPin(BUZZER_PIN);
 
-        //Inicializacion calibracion solo para test TEMPORAL
+        //Calibration initialization only for TEMPORAL test
         //===========================================
         haloCalib.initCalibration();
 
@@ -1166,7 +1166,7 @@ void setup()
 
 
         #ifdef testSensoresSoloCambios
-        //Para probar sensores , solo imprime cuando algo cambia en el tablero
+        //To test sensors, only prints when something changes on the board
         int resultChangeSensor;
         sensorsDir();
         while(true)
@@ -1502,7 +1502,7 @@ int readFromSerial()
     while (Serial.available()) {
         char uartValue = Serial.read();
         if (uartValue == ',' || uartValue == '\n') {
-            //limitar commandRead a ser un commando valido para poder ser pusheado
+            //limit commandRead to be a valid command to be pushed
             commands.push(commandRead);
             Serial.print("Commando ingresado al Buffer: ");
             Serial.println(commandRead);
@@ -1524,9 +1524,9 @@ int readFromSerial()
 }
 
 /**================================================================================================
- **                                      Funcion readMovementFile
- *?  Esta funcion busca la jugada que sigue dentro de los archivos de partidas guaedadas para la reproduccion del
- *?  modo Escultura
+ **                                      Function readMovementFile
+ *?  This function searches for the next move inside the saved game files for the playback of
+ *?  sculpture mode
  *@param name type
  *@return void
  *================================================================================================**/
@@ -1540,11 +1540,11 @@ bool readFromFile(fs::FS &fs, int nMovement)
     int contMovement = 1;
     
     //====run program========================================================
-    //Determina si se ha terminado la reproduccion de la partida al encontrar la instrucion del resultado
-    //leemos el dato actual desde el bluetooth para asignarlo a checkInstruction
-    //si el dato es 0 entonces se ha enviado desde bluetooth el comando para interrumpir 
-    //asignamos a mov_chess[] el comando de empate del juego
-    //la variable checkInstruction se debe volver 1 dentro del estado reorderAutomatic
+    //Determines if the game playback has finished by finding the result instruction
+    //we read the current value from bluetooth to assign it to checkInstruction
+    //if the value is 0 then the command to interrupt has been sent from bluetooth
+    //we assign the game draw command to mov_chess[]
+    //the variable checkInstruction must return to 1 inside the reorderAutomatic state
     String modeSelectNow;
     #ifdef SelectModeBluetooth
       modeSelectNow = BluetoothChess.getModeChess();
@@ -1552,7 +1552,7 @@ bool readFromFile(fs::FS &fs, int nMovement)
       Serial.println(modeSelectNow);
       if(modeSelectNow == "1")            
       {                             
-        checkInstruction = 1;   //Continua a realizar el movimiento sobre el tablero
+        checkInstruction = 1;   //Continues to perform the movement on the board
         mode = 1;
       }
       if(modeSelectNow == "2")            
@@ -1575,7 +1575,7 @@ bool readFromFile(fs::FS &fs, int nMovement)
         Serial.printf("Dir Name file: %s\r\n", dirName);
         Serial.println("");
 
-        myFileChess.close();                 //Lo agregue para ver si esta relacionado con el problema de que de manera aleatoria se queda sin poder leer los archivos              
+        myFileChess.close();                 //Added to check if it is related to the problem of randomly being unable to read the files              
         myFileChess = fs.open(dirName);
         listFilesChessTest(SPIFFS,"/");
         delay(100);
@@ -1620,12 +1620,12 @@ bool readFromFile(fs::FS &fs, int nMovement)
                     
                 } while (char_actual != ' ');
 
-                for (int i = 0; i < 7; i++) //Busca si hay un punto el el vector para descartarlo como una instruccion de movimiento
+                for (int i = 0; i < 7; i++) //Searches for a period in the vector to discard it as a movement instruction
                 {
                     if (mov_chess[i] == '.') {
                         band_vec = 1;
                         for (int j = 0; j < 7; j++) {
-                            mov_chess[j] = 'v'; //Inicializa nuevamente el vector
+                            mov_chess[j] = 'v'; //Initializes the vector again
                         }
                     }
                 }
@@ -1644,7 +1644,7 @@ bool readFromFile(fs::FS &fs, int nMovement)
                         Serial.print(contMovement);
                         Serial.print(" ");
                         Serial.println(stringJugada);
-                        BluetoothChess.setStatus(stringJugada);     //Test para enviar info por bluetooth
+                        BluetoothChess.setStatus(stringJugada);     //Test to send info via bluetooth
 
                         movementFileGlobal = stringJugada;
                         numMovement++;
@@ -1665,8 +1665,8 @@ bool readFromFile(fs::FS &fs, int nMovement)
 }
 /*================================================================================================*/
 
-//=========================Descripcion de simbolos==============================
-//    PIEZAS
+//=========================Symbol descriptions==============================
+//    PIECES
 //    King: the letter K
 //    Queen: the letter Q
 //    Rook: the letter R
@@ -1674,24 +1674,24 @@ bool readFromFile(fs::FS &fs, int nMovement)
 //    Knight: the letter N
 //    Pawn: no letter assigned
 
-//    Acciones
-//    - : Mueve pieza
-//   ' ': Mueve pieza
-//    x : Come pieza
-//    + : Pone en jaque
-//    o : Enroque
+//    Actions
+//    - : Moves piece
+//   ' ': Moves piece
+//    x : Captures piece
+//    + : Puts in check
+//    o : Castling
 
 //    acc
-//    1 : solo mueve
-//    2 : mueve y promocion
-//    3 : mueve y come
-//    4 : mueve y jaque
-//    5 : mueve, promocion y jaque
-//    6 : mueve, come y jaque
-//    7 : Enroque corto
-//    8 : Enroque largo
+//    1 : only moves
+//    2 : moves and promotion
+//    3 : moves and captures
+//    4 : moves and check
+//    5 : moves, promotion and check
+//    6 : moves, captures and check
+//    7 : Kingside castling
+//    8 : Queenside castling
 //    9 : Passant
-//   10 : mueve, come y promocion
+//   10 : moves, captures and promotion
 
 void infoChessMovement(char v[7], char* ini_c1, char* ini_c2, char* fin_c1, char* fin_c2, char* pieza, int* acc)
 {
@@ -1740,10 +1740,10 @@ void infoChessMovement(char v[7], char* ini_c1, char* ini_c2, char* fin_c1, char
         }
     }
     if (enroque == 7) {
-        *pieza = 'S'; //Enroque corto
+        *pieza = 'S'; //Kingside castling
     }
     if (enroque == 8) {
-        *pieza = 'L'; //Enroque Largo
+        *pieza = 'L'; //Queenside castling
     }
     int k = 0;
     for (int i = 0; i < 7; i++) {
@@ -1870,7 +1870,7 @@ void moveChessPiece(char x_ini, char y_ini, char x_fin, char y_fin, int movement
 
     #ifdef funcAccelRamp
     #ifdef version4Electro
-    Robot.accelRamp(comp_ini_x,comp_ini_y,2,0,mainElectro);       //Antes desacelracion,2
+    Robot.accelRamp(comp_ini_x,comp_ini_y,2,0,mainElectro);       //Previously deceleration,2
     #endif
     #endif
 
@@ -1893,7 +1893,7 @@ void moveChessPiece(char x_ini, char y_ini, char x_fin, char y_fin, int movement
     #endif
                                                                                 
     //==============
-    //Funcion que recorre un area del escaque para tomar la pieza
+    //Function that traverses a square area to pick up the piece
     checkAreaChess(comp_ini_x, comp_ini_y, 6);
     //=================================================================
      
@@ -1966,11 +1966,11 @@ void moveChessPiece(char x_ini, char y_ini, char x_fin, char y_fin, int movement
 
     if (mode != 2)
     {
-        //=======Condicion para el caso de promocion de un peon========
+        //=======Condition for the pawn promotion case========
         if (movement == 2 || movement == 5 || movement == 10)
         {
             comerVersion3(x_fin, y_fin, movement, chess_color, pieza);
-            //Falta (Funcion que coloca la pieza en el lugar del peon)
+            //TODO: (Function that places the piece in the pawn's position)
         }
         //=============================================================
     }
@@ -2009,7 +2009,7 @@ void activateElectromagnet()
     ledcAttachPin(LED_PIN, ledChannel);
     
     ledcWrite(ledChannel, 0);
-    delay(600); //Antes delay 1000 //Antes 800
+    delay(600); //Previously delay 1000 //Previously 800
    #endif
      
 }
@@ -2033,7 +2033,7 @@ void deactivateElectromagnet()
     ledcAttachPin(LED_PIN, ledChannel);
     
     ledcWrite(ledChannel, 0);
-    delay(100); //Antes delay 1000 //Antes 800
+    delay(100); //Previously delay 1000 //Previously 800
     #endif
 
     #ifdef electromagnetConf2
@@ -2155,10 +2155,10 @@ void chess_Pawn(char x_ini, char y_ini, char x_fin, char y_fin, int movement, bo
 }
 
 
-//Para ambos enroques la secuencia ya está definida, sólo cambia según el color de la pieza que va a mover
-//y si se trata de un enroque corto o largo.
-//Por regla el primer movimiento lo debe realizar el rey y posteriormente la torre
-//Por ahora como sólo se están leyendo jugadas desde un archivo no se hacen las verificaciones necesarias
+//For both castling moves the sequence is already defined, it only changes based on the color of the piece to be moved
+//and whether it is a kingside or queenside castling.
+//By rule, the first movement must be made by the king and then the rook
+//For now, since moves are only being read from a file, the necessary verifications are not being done
 void enroque_corto(bool chess_color)
 {
     double comp_ini_x, comp_ini_y;
@@ -2172,9 +2172,9 @@ void enroque_corto(bool chess_color)
 
     
     //====================================================
-    if (chess_color == true) //Si es el turno de las blancas
+    if (chess_color == true) //If it is white's turn
     {
-        //Movemos hacia la posicion del rey blanco "e1"
+        //Move to the white king position "e1"
         boardPosition = getBoardPositionFromString("e1");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2187,7 +2187,7 @@ void enroque_corto(bool chess_color)
         #endif
 
         
-        //Movemos el rey blanco a "g1"
+        //Move the white king to "g1"
         boardPosition = getBoardPositionFromString("g1");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2199,7 +2199,7 @@ void enroque_corto(bool chess_color)
 
         #endif
 
-        //Movemos a la posicion de la torre en "h1"
+        //Move to the rook position at "h1"
         boardPosition = getBoardPositionFromString("h1");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2211,7 +2211,7 @@ void enroque_corto(bool chess_color)
 
         #endif
 
-        //Movemos la torre al centro de "f1"
+        //Move the rook to the center of "f1"
         boardPosition = getBoardPositionFromString("f1");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2224,9 +2224,9 @@ void enroque_corto(bool chess_color)
         #endif
 
     }
-     else //Si es el turno de las negras
+     else //If it is black's turn
     {
-        //Movemos hacia la posicion del rey negro "e8"
+        //Move to the black king position "e8"
         boardPosition = getBoardPositionFromString("e8");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2238,7 +2238,7 @@ void enroque_corto(bool chess_color)
 
         #endif
 
-        //Movemos el rey negro a "g8"
+        //Move the black king to "g8"
         boardPosition = getBoardPositionFromString("g8");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2251,7 +2251,7 @@ void enroque_corto(bool chess_color)
         #endif
 
 
-        //Movemos a la posicion de la torre en "h8"
+        //Move to the rook position at "h8"
         boardPosition = getBoardPositionFromString("h8");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2263,7 +2263,7 @@ void enroque_corto(bool chess_color)
 
         #endif
 
-        //Movemos la torre al centro de "f8"
+        //Move the rook to the center of "f8"
         boardPosition = getBoardPositionFromString("f8");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2291,10 +2291,10 @@ void enroque_largo(bool chess_color)
 
     
     //=======================================================
-    if (chess_color == true) //Si es el turno de las blancas
+    if (chess_color == true) //If it is white's turn
     {
 
-        //Movemos hacia la posicion del rey blanco "e1"
+        //Move to the white king position "e1"
         boardPosition = getBoardPositionFromString("e1");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2306,7 +2306,7 @@ void enroque_largo(bool chess_color)
 
         #endif
 
-        //Movemos el rey blanco a "c1"
+        //Move the white king to "c1"
         boardPosition = getBoardPositionFromString("c1");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2319,7 +2319,7 @@ void enroque_largo(bool chess_color)
         #endif
 
 
-        //Movemos a la posicion de la torre en "a1"
+        //Move to the rook position at "a1"
         boardPosition = getBoardPositionFromString("a1");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2331,7 +2331,7 @@ void enroque_largo(bool chess_color)
 
         #endif
 
-         //Movemos la torre al centro de "d1"
+         //Move the rook to the center of "d1"
         boardPosition = getBoardPositionFromString("d1");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2345,9 +2345,9 @@ void enroque_largo(bool chess_color)
 
         
     }
-    else //Si es el turno de las negras
+    else //If it is black's turn
     {
-        //Movemos hacia la posicion del rey negro "e8"
+        //Move to the black king position "e8"
         boardPosition = getBoardPositionFromString("e8");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2360,7 +2360,7 @@ void enroque_largo(bool chess_color)
         #endif
 
 
-        //Movemos el rey negro a "c8"
+        //Move the black king to "c8"
         boardPosition = getBoardPositionFromString("c8");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2374,7 +2374,7 @@ void enroque_largo(bool chess_color)
 
 
 
-        //Movemos a la posicion de la torre en "a8"
+        //Move to the rook position at "a8"
         boardPosition = getBoardPositionFromString("a8");
         comp_ini_x = boardPosition.x;
         comp_ini_y = boardPosition.y;
@@ -2387,7 +2387,7 @@ void enroque_largo(bool chess_color)
         #endif
 
 
-        //Movemos la torre al centro de "d8"
+        //Move the rook to the center of "d8"
         boardPosition = getBoardPositionFromString("d8");
         comp_fin_x = boardPosition.x;
         comp_fin_y = boardPosition.y;
@@ -2486,7 +2486,7 @@ void moveChessPieceKnight(char x_ini, char y_ini, char x_fin, char y_fin, int mo
 
     Serial.println("Dentro de funcion moveChessPiece");
     Serial.println("Color del movimiento actual");
-    //Segmento para calcular los 6 puntos intermedios en el movimiento del caballo
+    //Segment to calculate the 6 intermediate points in the knight's movement
     double vectMoveKnightX[6];
     double vectMoveKnightY[6];
     double difAxisX;
@@ -2537,7 +2537,7 @@ void moveChessPieceKnight(char x_ini, char y_ini, char x_fin, char y_fin, int mo
     Robot.setAccelRampFunction(maximunAccelDirectRamp);
     
     #ifdef version4Electro
-    Robot.accelRamp(comp_ini_x,comp_ini_y,2,0,mainElectro);   //Antes desacelracion,2
+    Robot.accelRamp(comp_ini_x,comp_ini_y,2,0,mainElectro);   //Previously deceleration,2
     #endif
     #endif
 
@@ -2673,7 +2673,7 @@ void upgradeMatriz(char x_ini, char y_ini, char x_fin, char y_fin, int movement,
     int posMatrizFinX = -1;
     int posMatrizFinY = -1;
 
-    //Busqueda de las coordenadas para modificar la matriz del tablero
+    //Search for coordinates to update the board matrix
     for(int i = 0; i < 8; i++)
     {
         if(x_ini == posCoordBoardX[i])
@@ -2699,16 +2699,16 @@ void upgradeMatriz(char x_ini, char y_ini, char x_fin, char y_fin, int movement,
     }
 
 //    movement
-//    1 : solo mueve
-//    2 : mueve y promocion
-//    3 : mueve y come
-//    4 : mueve y jaque
-//    5 : mueve, promocion y jaque
-//    6 : mueve, come y jaque
-//    7 : Enroque corto
-//    8 : Enroque largo
+//    1 : only moves
+//    2 : moves and promotion
+//    3 : moves and captures
+//    4 : moves and check
+//    5 : moves, promotion and check
+//    6 : moves, captures and check
+//    7 : Kingside castling
+//    8 : Queenside castling
 //    9 : Passant 
-//   10 : mueve, come y promocion
+//   10 : moves, captures and promotion
 
     if(pieza == 'S' || pieza == 'L')
     {
@@ -2899,7 +2899,7 @@ void removeChessAuto(void)
         {
             if(matriz[i][j] != '.')
             {
-                //======== Determinar que pieza se encontro y de que color es ======
+                //======== Determine which piece was found and its color ======
                 for(int k = 0; k < 12; k++)
                 {
                     if(matriz[i][j] == vectChess[k])
@@ -3038,7 +3038,7 @@ void reorderAuto()
     char charPosYFinal = 'v';
     bool colorActualChess = false;
 
-    //=============Inicializacion de la matriz de referencia Matriz2============
+    //=============Initialization of the reference matrix Matriz2============
     char vectChessW[8] = {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'};
     char vectChessB[8] = {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'};
     for(int i = 0; i < 8; i++){
@@ -3064,30 +3064,30 @@ void reorderAuto()
 
 
     //-----------------------------------------------
-    //Recorre la matriz inicializada para identificar el lugar de cada pieza
-    //Genera la coordenada de posicion final
-    //Busca la pieza en el vector de piezas muertas
-    //Genera la coordenada de posicion inicial
-    //Mueve la pieza al lugar que le corresponde
-    //Avanza a la siguiente posicion de la matriz
+    //Traverses the initialized matrix to identify the position of each piece
+    //Generates the final position coordinate
+    //Searches for the piece in the dead pieces vector
+    //Generates the initial position coordinate
+    //Moves the piece to its corresponding place
+    //Advances to the next position in the matrix
     //-----------------------------------------------
 
 
-    //------Nuevo algoritmo para reordenar piezas----
-    //1..Recorre la matriz inicializada para identificar el lugar de cada pieza
-    //2..Genera la coordenada de posicion final
+    //------New algorithm for reordering pieces----
+    //1..Traverses the initialized matrix to identify the position of each piece
+    //2..Generates the final position coordinate
     
-    //La variable "matriz[][]" como ya no se vacia con la funcion "removeChessAuto", contiene el ultimo estado del tablero
-    //3..Primera condicion es ver si la coordenada de posicion final esta ocupada en la matriz[][], si esta vacia continua
-    //al punto 4.
+    //The variable "matriz[][]" as it is no longer cleared by the function "removeChessAuto", contains the last board state
+    //3..First condition is to check if the final position coordinate is occupied in the matrix[][], if empty continue
+    //to step 4.
 
 
 
 
-    //Busca la pieza en el vector de piezas muertas
-    //Genera la coordenada de posicion inicial
-    //Mueve la pieza al lugar que le corresponde
-    //Avanza a la siguiente posicion de la matriz
+    //Searches for the piece in the dead pieces vector
+    //Generates the initial position coordinate
+    //Moves the piece to its corresponding place
+    //Advances to the next position in the matrix
     //-----------------------------------------------      
 
     for(int j = 0; j < 8; j++)
@@ -3106,12 +3106,12 @@ void reorderAuto()
                 
                 if (matriz2[i][j] >= 'a' && matriz2[i][j] <= 'z')
                 {
-                    //Piezas Negras
+                    //Black Pieces
                     colorActualChess = false;
                 }
                 if (matriz2[i][j] >= 'A' && matriz2[i][j] <= 'Z')
                 {
-                    //Piezas Blancas
+                    //White Pieces
                     colorActualChess = true;
                 }
 
@@ -3141,19 +3141,19 @@ void reorderAuto()
                 #ifdef funcAccelRamp
                 
                 #ifdef version4Electro
-                if (coordIniX < -200) // Si va a sacar del lado izquierdo
+                if (coordIniX < -200) // If removing from the left side
                 {
                     Robot.accelRamp(coordIniX,coordIniY, 2, 0, 1);  //Original 4
                 }
-                if (coordIniX > 200) // Si va a sacar del lado derecho
+                if (coordIniX > 200) // If removing from the right side
                 {
                     Robot.accelRamp(coordIniX,coordIniY, 2, 0, 3);  //Original 2
                 }
-                if (coordIniY < -200) // Si va a sacar del lado inferior
+                if (coordIniY < -200) // If removing from the bottom side
                 {
                     Robot.accelRamp(coordIniX,coordIniY, 2, 0, 4);  //Original 3
                 }
-                if (coordIniY > 200) // Si va a sacar del lado superior
+                if (coordIniY > 200) // If removing from the top side
                 {
                     Robot.accelRamp(coordIniX,coordIniY, 2, 0, 2);  //Original 1
                 }
@@ -3176,19 +3176,19 @@ void reorderAuto()
                 #endif
 
                 #ifdef version4Electro
-                if (coordIniX < -200) // Si va a sacar del lado izquierdo
+                if (coordIniX < -200) // If removing from the left side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,1); //Original 4
                 }
-                if (coordIniX > 200) // Si va a sacar del lado derecho
+                if (coordIniX > 200) // If removing from the right side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,3); //Original 2
                 }
-                if (coordIniY < -200) // Si va a sacar del lado inferior
+                if (coordIniY < -200) // If removing from the bottom side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,4); //Original 3
                 }
-                if (coordIniY > 200) // Si va a sacar del lado superior
+                if (coordIniY > 200) // If removing from the top side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,2); //Original 1
                 }
@@ -3220,19 +3220,19 @@ void reorderAuto()
 
                     #ifdef funcAccelRamp
                     #ifdef version4Electro
-                    if (coordIniX < -200) // Si va a sacar del lado izquierdo
+                    if (coordIniX < -200) // If removing from the left side
                     {
                         Robot.accelRamp(coordIniX, coordIniY, 2, 0, 1); //Original 4
                     }
-                    if (coordIniX > 200) // Si va a sacar del lado derecho
+                    if (coordIniX > 200) // If removing from the right side
                     {
                         Robot.accelRamp(coordIniX, coordIniY, 2, 0, 3); //Original 2
                     }
-                    if (coordIniY < -200) // Si va a sacar del lado inferior
+                    if (coordIniY < -200) // If removing from the bottom side
                     {
                         Robot.accelRamp(coordIniX, coordIniY, 2, 0, 4); //Original 3
                     }
-                    if (coordIniY > 200) // Si va a sacar del lado superior
+                    if (coordIniY > 200) // If removing from the top side
                     {
                         Robot.accelRamp(coordIniX, coordIniY, 2, 0, 2); //Original 1
                     }
@@ -3256,19 +3256,19 @@ void reorderAuto()
 
                     //moveOnTheLine(coordIniX, coordIniY, compFinX,compFinY);
                     #ifdef version4Electro
-                if (coordIniX < -200) // Si va a sacar del lado izquierdo
+                if (coordIniX < -200) // If removing from the left side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,1); //Original 4
                 }
-                if (coordIniX > 200) // Si va a sacar del lado derecho
+                if (coordIniX > 200) // If removing from the right side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,3); //Original 2
                 }
-                if (coordIniY < -200) // Si va a sacar del lado inferior
+                if (coordIniY < -200) // If removing from the bottom side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,4); //Original 3
                 }
-                if (coordIniY > 200) // Si va a sacar del lado superior
+                if (coordIniY > 200) // If removing from the top side
                 {
                     moveOnTheLinev2(coordIniX, coordIniY, compFinX,compFinY,2); //Original 1
                 }
