@@ -6823,8 +6823,8 @@ void runStateMachine()
 }
 
 /**================================================================================================
- **                                      Funcion updateStateMchine
- *?  Esta funcion actualiza el estado actual de la máquina de estados
+ **                                      Function updateStateMachine
+ *?  This function updates the current state of the state machine
  *@param currentState Global int
  *@return void
  *================================================================================================**/
@@ -6920,9 +6920,9 @@ String readCommandInput()
 }
 
 /**================================================================================================
- **                                      Funcion listFilesChessTest
- *?  Esta funcion busca busca un archivo en la memoria SPIFFS mediante un indentificador numerico
- *?  definido en la variable "idActualFile"
+ **                                      Function listFilesChessTest
+ *?  This function searches for a file in SPIFFS memory using a numeric identifier
+ *?  defined in the variable "idActualFile"
  *@param dirnName Global int
  *@return void
  *================================================================================================**/
@@ -6970,11 +6970,11 @@ void readSensors3()
     int resultContPiezas = -1;
     bool colorJugadorActual = 0;
     resultChangeChess = detectChange();
-    resultContPiezas = contChessSensors(); //Devuelve 1 si estan todas las piezas 0 si faltan piezas en el tablero
+    resultContPiezas = contChessSensors(); //Returns 1 if all pieces are present, 0 if pieces are missing from the board
     if (resultContPiezas == 1)
     {
         comandoJugadaR = upgradeChessboardFromSensors(&colorJugadorActual);
-        BluetoothChess.setStatus(comandoJugadaR);     //Test para enviar info por bluetooth
+        BluetoothChess.setStatus(comandoJugadaR);     //Test to send info via bluetooth
         if(comandoJugadaR != "")
         {
             Serial.println(comandoJugadaR);
@@ -7063,7 +7063,7 @@ void menu()
         numdeDatos = readFromSerial();
         if (numdeDatos == 1 && a == 1)
         {
-           //Movimiento del caballo de la posicion 25,25 a lla posicion 75,125
+           //Knight movement from position 25,25 to position 75,125
             Robot.moveToPointV2(25, 25);
             Robot.moveToPointV2(37.5, 28.35);
             Robot.moveToPointV2(46.65, 37.5);
@@ -7410,7 +7410,7 @@ void detectChessBoardVerif()
 
 #ifdef pinoutv3
    //barra1
-    orderedSensorValues[0][0]=muxValues[4][6][4]; //sensor mas lejano a middle
+    orderedSensorValues[0][0]=muxValues[4][6][4]; //sensor farthest from middle
     orderedSensorValues[0][1]=muxValues[4][6][6];
     orderedSensorValues[0][2]=muxValues[4][6][7];
     orderedSensorValues[0][3]=muxValues[4][6][5];
@@ -7419,9 +7419,9 @@ void detectChessBoardVerif()
     orderedSensorValues[0][6]=muxValues[4][6][0];
     orderedSensorValues[0][7]=muxValues[4][6][3];
     orderedSensorValues[0][8]=muxValues[4][4][0];
-    orderedSensorValues[0][9]=muxValues[4][2][0];// sensor mas cercano a middle
+    orderedSensorValues[0][9]=muxValues[4][2][0];// sensor closest to middle
 //barra2
-    orderedSensorValues[1][0]=muxValues[4][1][4];//sensor mas lejano a middle
+    orderedSensorValues[1][0]=muxValues[4][1][4];//sensor farthest from middle
     orderedSensorValues[1][1]=muxValues[4][1][6];
     orderedSensorValues[1][2]=muxValues[4][1][7];
     orderedSensorValues[1][3]=muxValues[4][1][5];
@@ -7432,7 +7432,7 @@ void detectChessBoardVerif()
     orderedSensorValues[1][8]=muxValues[4][7][0];
     orderedSensorValues[1][9]=muxValues[4][5][0];
 //barra3
-    orderedSensorValues[2][0]=muxValues[3][2][4];//sensor mas lejano a middle
+    orderedSensorValues[2][0]=muxValues[3][2][4];//sensor farthest from middle
     orderedSensorValues[2][1]=muxValues[3][2][6];
     orderedSensorValues[2][2]=muxValues[3][2][7];
     orderedSensorValues[2][3]=muxValues[3][2][5];
@@ -7443,7 +7443,7 @@ void detectChessBoardVerif()
     orderedSensorValues[2][8]=muxValues[4][3][0];
     orderedSensorValues[2][9]=muxValues[4][0][0];
 //barra4
-    orderedSensorValues[3][0]=muxValues[3][4][4];//sensor mas lejano a middle
+    orderedSensorValues[3][0]=muxValues[3][4][4];//sensor farthest from middle
     orderedSensorValues[3][1]=muxValues[3][4][6];
     orderedSensorValues[3][2]=muxValues[3][4][7];
     orderedSensorValues[3][3]=muxValues[3][4][5];
@@ -7454,7 +7454,7 @@ void detectChessBoardVerif()
     orderedSensorValues[3][8]=muxValues[3][6][0];
     orderedSensorValues[3][9]=muxValues[3][1][0];
 //barra5
-    orderedSensorValues[4][0]=muxValues[3][3][4];//sensor mas lejano a middle
+    orderedSensorValues[4][0]=muxValues[3][3][4];//sensor farthest from middle
     orderedSensorValues[4][1]=muxValues[3][3][6];
     orderedSensorValues[4][2]=muxValues[3][3][7];
     orderedSensorValues[4][3]=muxValues[3][3][5];
@@ -7465,7 +7465,7 @@ void detectChessBoardVerif()
     orderedSensorValues[4][8]=muxValues[3][0][0];
     orderedSensorValues[4][9]=muxValues[3][5][0];
 //barra6
-    orderedSensorValues[5][0]=muxValues[2][1][4];//sensor mas lejano a middle
+    orderedSensorValues[5][0]=muxValues[2][1][4];//sensor farthest from middle
     orderedSensorValues[5][1]=muxValues[2][1][6];
     orderedSensorValues[5][2]=muxValues[2][1][7];
     orderedSensorValues[5][3]=muxValues[2][1][5];
@@ -7476,7 +7476,7 @@ void detectChessBoardVerif()
     orderedSensorValues[5][8]=muxValues[2][3][0];
     orderedSensorValues[5][9]=muxValues[2][2][0];
 //barra7
-    orderedSensorValues[6][0]=muxValues[2][0][4];//sensor mas lejano a middle
+    orderedSensorValues[6][0]=muxValues[2][0][4];//sensor farthest from middle
     orderedSensorValues[6][1]=muxValues[2][0][6];
     orderedSensorValues[6][2]=muxValues[2][0][7];
     orderedSensorValues[6][3]=muxValues[2][0][5];
@@ -7487,7 +7487,7 @@ void detectChessBoardVerif()
     orderedSensorValues[6][8]=muxValues[2][4][0];
     orderedSensorValues[6][9]=muxValues[2][5][0];
 //barra8
-    orderedSensorValues[7][0]=muxValues[1][5][4];//sensor mas lejano a middle
+    orderedSensorValues[7][0]=muxValues[1][5][4];//sensor farthest from middle
     orderedSensorValues[7][1]=muxValues[1][5][6];
     orderedSensorValues[7][2]=muxValues[1][5][7];
     orderedSensorValues[7][3]=muxValues[1][5][5];
@@ -7498,7 +7498,7 @@ void detectChessBoardVerif()
     orderedSensorValues[7][8]=muxValues[1][2][0];
     orderedSensorValues[7][9]=muxValues[2][6][0];
 //barra9
-    orderedSensorValues[8][0]=muxValues[1][1][4];//sensor mas lejano a middle
+    orderedSensorValues[8][0]=muxValues[1][1][4];//sensor farthest from middle
     orderedSensorValues[8][1]=muxValues[1][1][6];
     orderedSensorValues[8][2]=muxValues[1][1][7];
     orderedSensorValues[8][3]=muxValues[1][1][5];
@@ -7509,7 +7509,7 @@ void detectChessBoardVerif()
     orderedSensorValues[8][8]=muxValues[1][3][0];
     orderedSensorValues[8][9]=muxValues[1][7][0];
  //barra10
-    orderedSensorValues[9][0]=muxValues[1][6][4];//sensor mas lejano a middleiiiiiiiiiiiiiiiiiiiiiii
+    orderedSensorValues[9][0]=muxValues[1][6][4];//sensor farthest from middle
     orderedSensorValues[9][1]=muxValues[1][6][6];
     orderedSensorValues[9][2]=muxValues[1][6][7];
     orderedSensorValues[9][3]=muxValues[1][6][5];
@@ -7523,7 +7523,7 @@ void detectChessBoardVerif()
 
 #endif
 
-//================  Pasar el vector a la matriz binaria Temporal=================
+//================  Convert the vector to the binary matrix (Temporary)=================
 int a = 0;
 int b = 9;
 
@@ -7539,7 +7539,7 @@ for (int j = 0; j < 10; j++)
 }
 
 #if PosMatrizSensor == matrizPos1
-//================  Matriz en posicion 1 (Original) =================
+//================  Matrix in position 1 (Original) =================
 for (int j = 0; j < 10; j++)
 {
     for (int i = 0; i < 10; i++)
@@ -7550,7 +7550,7 @@ for (int j = 0; j < 10; j++)
 #endif
 
 #if PosMatrizSensor == matrizPos2
-//================  Matriz en posicion 2 (Rota 90grados en sentido horario) =================
+//================  Matrix in position 2 (Rotated 90 degrees clockwise) =================
  a = 0;
  b = 9;
 for (int j = 0; j < 10; j++)
@@ -7566,7 +7566,7 @@ for (int j = 0; j < 10; j++)
 #endif
 
 #if PosMatrizSensor == matrizPos3
-//================  Matriz en posicion 3 (Rota 180grados en sentido horario) =================
+//================  Matrix in position 3 (Rotated 180 degrees clockwise) =================
  a = 9;
  b = 9;
 for (int j = 0; j < 10; j++)
@@ -7582,7 +7582,7 @@ for (int j = 0; j < 10; j++)
 #endif
 
 #if PosMatrizSensor == matrizPos4
-//================  Matriz en posicion 4 (Rota 270grados en sentido horario) =================
+//================  Matrix in position 4 (Rotated 270 degrees clockwise) =================
  a = 9;
  b = 0;
 for (int j = 0; j < 10; j++)
@@ -7615,8 +7615,8 @@ Serial.println("");
 //======================================================================
 }
 
-//Funcion que realiza el movimiento de enroque coorto para la torre, ya que el movimiento del rey se realiza 
-//previamente, esta funcion se utiliza en el modo de juego de Play Mode
+//Function that performs the kingside castling movement for the rook; since the king's movement is performed
+//previously, this function is used in Play Mode game mode
 void shortCastlingRook(bool chess_color)
 {
     Serial.println("Movimiento de la torre en enroque corto");
@@ -7625,10 +7625,10 @@ void shortCastlingRook(bool chess_color)
 
     BoardPosition boardPosition;
 
-    if (chess_color == true) //Si es el turno de las blancas
+    if (chess_color == true) //If it is white's turn
     {
         deactivateElectromagnet();
-        //Movemos a la posicion de la torre en "h1"
+        //Move to the rook position at "h1"
         boardPosition = getBoardPositionFromString("h1");
         
         #ifdef funcMoveTo
@@ -7639,7 +7639,7 @@ void shortCastlingRook(bool chess_color)
         #endif
         activateElectromagnet();
 
-        //Movemos la torre a la linea inferior del limite del tablero
+        //Move the rook to the bottom edge line of the board
         boardPosition.x = 3.5 * longitud;
         boardPosition.y = -4.0 * longitud;
         x[0] = boardPosition.x;
@@ -7652,7 +7652,7 @@ void shortCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre sobre la linea inferior del tablero hasta "f1"
+        //Move the rook along the bottom board edge to "f1"
         boardPosition.x = 1.5 * longitud;
         boardPosition.y = -4.0 * longitud;
         x[1] = boardPosition.x;
@@ -7665,7 +7665,7 @@ void shortCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre al centro de "f1"
+        //Move the rook to the center of "f1"
         boardPosition = getBoardPositionFromString("f1");
         x[2] = boardPosition.x;
         y[2] = boardPosition.y;
@@ -7679,10 +7679,10 @@ void shortCastlingRook(bool chess_color)
         Robot.accelRamp(x[2],y[2],2);
         #endif
         deactivateElectromagnet();
-    } else //Si es el turno de las negras
+    } else //If it is black's turn
     {
         deactivateElectromagnet();
-        //Movemos a la posicion de la torre en "h8"
+        //Move to the rook position at "h8"
         boardPosition = getBoardPositionFromString("h8");
         
         #ifdef funcMoveTo
@@ -7693,7 +7693,7 @@ void shortCastlingRook(bool chess_color)
         #endif
         activateElectromagnet();
 
-        //Movemos la torre a la linea inferior del limite del tablero
+        //Move the rook to the bottom edge line of the board
         boardPosition.x = 3.5 * longitud;
         boardPosition.y = 4.0 * longitud;
         x[0] = boardPosition.x;
@@ -7706,7 +7706,7 @@ void shortCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre sobre la linea inferior del tablero hasta "f8"
+        //Move the rook along the bottom board edge to "f8"
         boardPosition.x = 1.5 * longitud;
         boardPosition.y = 4.0 * longitud;
         x[1] = boardPosition.x;
@@ -7719,7 +7719,7 @@ void shortCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre al centro de "f8"
+        //Move the rook to the center of "f8"
         boardPosition = getBoardPositionFromString("f8");
         x[2] = boardPosition.x;
         y[2] = boardPosition.y;
@@ -7734,18 +7734,18 @@ void shortCastlingRook(bool chess_color)
     }
 }
 
-//Funcion que realiza el movimiento de enroque largo para la torre, ya que el movimiento del rey se realiza 
-//previamente, esta funcion se utiliza en el modo de juego de Play Mode
+//Function that performs the queenside castling movement for the rook; since the king's movement is performed
+//previously, this function is used in Play Mode game mode
 void longCastlingRook(bool chess_color)
 {
     double x[5];
     double y[5];
     BoardPosition boardPosition;
 
-    if (chess_color == true) //Si es el turno de las blancas
+    if (chess_color == true) //If it is white's turn
     {
         deactivateElectromagnet();
-        //Movemos a la posicion de la torre en "a1"
+        //Move to the rook position at "a1"
         boardPosition = getBoardPositionFromString("a1");
         
         #ifdef funcMoveTo
@@ -7756,7 +7756,7 @@ void longCastlingRook(bool chess_color)
         #endif
         activateElectromagnet();
 
-        //Movemos la torre a la linea inferior del limite del tablero
+        //Move the rook to the bottom edge line of the board
         boardPosition.x = -3.5 * longitud;
         boardPosition.y = -4.0 * longitud;
         x[0] = boardPosition.x;
@@ -7769,7 +7769,7 @@ void longCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre sobre la linea inferior del tablero hasta "d1"
+        //Move the rook along the bottom board edge to "d1"
         boardPosition.x = -0.5 * longitud;
         boardPosition.y = -4.0 * longitud;
         x[1] = boardPosition.x;
@@ -7782,7 +7782,7 @@ void longCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre al centro de "d1"
+        //Move the rook to the center of "d1"
         boardPosition = getBoardPositionFromString("d1");
         x[2] = boardPosition.x;
         y[2] = boardPosition.y;
@@ -7795,10 +7795,10 @@ void longCastlingRook(bool chess_color)
         #endif
         //moveThroughThisPoints(x, y, 3);
         deactivateElectromagnet();
-    } else //Si es el turno de las negras
+    } else //If it is black's turn
     {
         deactivateElectromagnet();
-        //Movemos a la posicion de la torre en "a8"
+        //Move to the rook position at "a8"
         boardPosition = getBoardPositionFromString("a8");
         
         #ifdef funcMoveTo
@@ -7809,7 +7809,7 @@ void longCastlingRook(bool chess_color)
         #endif
         activateElectromagnet();
 
-        //Movemos la torre a la linea inferior del limite del tablero
+        //Move the rook to the bottom edge line of the board
         boardPosition.x = -3.5 * longitud;
         boardPosition.y = 4.0 * longitud;
         x[0] = boardPosition.x;
@@ -7822,7 +7822,7 @@ void longCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre sobre la linea inferior del tablero hasta "d8"
+        //Move the rook along the bottom board edge to "d8"
         boardPosition.x = -0.5 * longitud;
         boardPosition.y = 4.0 * longitud;
         x[1] = boardPosition.x;
@@ -7835,7 +7835,7 @@ void longCastlingRook(bool chess_color)
         #endif
         delay(500); //Antes delay 1000
 
-        //Movemos la torre al centro de "d8"
+        //Move the rook to the center of "d8"
         boardPosition = getBoardPositionFromString("d8");
         x[2] = boardPosition.x;
         y[2] = boardPosition.y;
@@ -7874,10 +7874,10 @@ int checkFinalPositionGraveyard(bool colorInMovement)
     int vectPosXNegras[16] = {9,9,9,9,9,9,9,9,8,7,6,5,4,3,2,1};                                         //antes   {1,2,3,4,5,6,7,8,9,9,9,9,9,9,9,9}
     int vectPosYNegras[16] = {1,2,3,4,5,6,7,8,9,9,9,9,9,9,9,9}; 
     */                                         
-//Inercambiar las ultimas 8 coordenadas entre negras y blancas
-//Verificar la logica de cuando mete piezas
-//Si lo anterior funciona despues organizar las coordenadas para que
-//saque las piezas blancas del lado de las blancas y las negras del lado de las negras
+//Swap the last 8 coordinates between black and white
+//Verify the logic for when pieces are inserted
+//If the above works, then organize the coordinates so that
+//white pieces are removed from the white side and black pieces from the black side
     if(colorInMovement == true)
     {
         axisX = vectPosXNegras[indexVectNegras];
@@ -8169,11 +8169,11 @@ void impresionSerialEasyPeasy(int tiempo)
       bool colorActualChess = false;
 
       //-----------------------------------------------
-      //Recorre la matriz inicializada para identificar el lugar de cada pieza
-      //Genera la coordenada de posicion final
-      //Mueve la pieza a una posicion distinta al centro
-      //Inicia un movimiento para regresar al centro pero un instante antes desactiva el electroiman mientras continua el movimiento al centro
-      //Al llegar al centro Activa el eelectroiman al maximo y finalmente lo apaga
+      //Traverses the initialized matrix to identify the position of each piece
+      //Generates the final position coordinate
+      //Moves the piece to a position other than the center
+      //Initiates a movement to return to center, but briefly disables the electromagnet while continuing to move to center
+      //Upon reaching the center, activates the electromagnet at maximum power and finally turns it off
 
       for (int j = 0; j < 8; j++)
       {
@@ -8187,12 +8187,12 @@ void impresionSerialEasyPeasy(int tiempo)
 
                   if (matriz[i][j] >= 'a' && matriz[i][j] <= 'z')
                   {
-                      //Piezas Negras
+                      //Black Pieces
                       colorActualChess = false;
                   }
                   if (matriz[i][j] >= 'A' && matriz[i][j] <= 'Z')
                   {
-                      //Piezas Blancas
+                      //White Pieces
                       colorActualChess = true;
                   }
 
@@ -8326,7 +8326,7 @@ void moveOnTheLineIni(double xIni,double yIni,double xFin,double yFin)
     double compX, compY;
     double* ApX = &compX;
     double* ApY = &compY;
-    //=======Puntos intermedios para trayectoria del caballo=========
+    //=======Intermediate points for the knight's trajectory=========
     float diferenciaX;
     float diferenciaY;
     float puntoInterX;
@@ -8349,15 +8349,15 @@ void moveOnTheLineIni(double xIni,double yIni,double xFin,double yFin)
 
     deactivateElectromagnet();
 
-    //Robot.moveToPointV2(xIni, yIni,1); //Se dirige directamente a la posicion inicial con el electroiman desactivado
+    //Robot.moveToPointV2(xIni, yIni,1); //Moves directly to the start position with the electromagnet disabled
     
-    //Genera la trayectoria para ir a la posicion de la pieza moviendose entre lineas
+    //Generates the trajectory to reach the piece position moving along lines
     //================================================================================================
     
     diferenciaX = abs(compX - xIni);
     diferenciaY = abs(compY - yIni);
-    //======Condiciones para los casos donde la pieza se encuentra en los escaques de piezas muertas =======*/
-    //Como primer movimiento acerca a la pieza en diagonal hasta la esquina del escaque inicial
+    //======Conditions for cases where the piece is in the dead piece squares =======*/
+    //As the first movement, approaches the piece diagonally to the corner of the initial square
     if(compX < -200)
     {
         puntoInterX = compX + 25;
@@ -8435,7 +8435,7 @@ void moveOnTheLineIni(double xIni,double yIni,double xFin,double yFin)
     {
         if(compX < 0)
         {
-            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Punto inicial dentro del area de juego
+            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Initial point within the play area
             {
                 puntoInterX = compX + 25;
                 puntoInterY = compY;
@@ -8449,7 +8449,7 @@ void moveOnTheLineIni(double xIni,double yIni,double xFin,double yFin)
         }
         else
         {
-            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Punto inicial dentro del area de juego
+            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Initial point within the play area
             {
                 puntoInterX = compX - 25;
                 puntoInterY = compY;
@@ -8514,7 +8514,7 @@ void moveOnTheLineIni(double xIni,double yIni,double xFin,double yFin)
     {
         if(compX < 0)
         {
-            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Punto inicial dentro del area de juego
+            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Initial point within the play area
             {
                 puntoInterX = compX + 25;
                 puntoInterY = compY;
@@ -8528,7 +8528,7 @@ void moveOnTheLineIni(double xIni,double yIni,double xFin,double yFin)
         }
         else
         {
-            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Punto inicial dentro del area de juego
+            if((compX <= 200 && compX >= -200) && (compY <= 200 && compY >= -200))    //Initial point within the play area
             {
                 puntoInterX = compX - 25;
                 puntoInterY = compY;
@@ -8616,7 +8616,7 @@ void compareVirtualMatrizVsSensors()
         }
     #endif
 
-    //==========Compara matriz de sensores y tablero virtual en la zona de juego========
+    //==========Compares the sensor matrix and virtual board in the play zone========
     detectChessBoardVerif();
         for(int j = 0; j < 8; j++)
         {
@@ -8780,7 +8780,7 @@ void centrarPiezasAlgortimoConSensores()
 
     sensorsDir();
 
-    //Algoritmo para buscar el punto medio sobre el eje x
+    //Algorithm to find the midpoint on the x-axis
     //detectChessBoardVerif();
     detectChessBoardAlgoritmoSensores();
     
@@ -8843,7 +8843,7 @@ void centrarPiezasAlgortimoConSensores()
 
     #endif
 
-    // Recorrrido en eje x
+    // Traversal along x-axis
     while (matrizBinVerif[8][4] == 1)  //Antes [8][1]
     {
         //detectChessBoardVerif();
@@ -8983,7 +8983,7 @@ void centrarPiezasAlgortimoConSensores()
     #endif
 
 
-    //Algoritmo para buscar el punto medio sobre el eje y
+    //Algorithm to find the midpoint on the y-axis
     pasosEnX = 25;
     pasosEnY = 0;  
 
@@ -9043,7 +9043,7 @@ void centrarPiezasAlgortimoConSensores()
     #endif
 
     #endif
-    // Recorrrido en eje x
+    // Traversal along x-axis
     while (matrizBinVerif[5][3] == 1)   //Antes [8][1]
     {
         //detectChessBoardVerif();
@@ -9427,7 +9427,7 @@ void detectChessBoardAlgoritmoSensores()
 
 #ifdef pinoutv3
    //barra1
-    orderedSensorValues[0][0]=muxValues[4][6][4]; //sensor mas lejano a middle
+    orderedSensorValues[0][0]=muxValues[4][6][4]; //sensor farthest from middle
     orderedSensorValues[0][1]=muxValues[4][6][6];
     orderedSensorValues[0][2]=muxValues[4][6][7];
     orderedSensorValues[0][3]=muxValues[4][6][5];
@@ -9436,9 +9436,9 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[0][6]=muxValues[4][6][0];
     orderedSensorValues[0][7]=muxValues[4][6][3];
     orderedSensorValues[0][8]=muxValues[4][4][0];
-    orderedSensorValues[0][9]=muxValues[4][2][0];// sensor mas cercano a middle
+    orderedSensorValues[0][9]=muxValues[4][2][0];// sensor closest to middle
 //barra2
-    orderedSensorValues[1][0]=muxValues[4][1][4];//sensor mas lejano a middle
+    orderedSensorValues[1][0]=muxValues[4][1][4];//sensor farthest from middle
     orderedSensorValues[1][1]=muxValues[4][1][6];
     orderedSensorValues[1][2]=muxValues[4][1][7];
     orderedSensorValues[1][3]=muxValues[4][1][5];
@@ -9449,7 +9449,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[1][8]=muxValues[4][7][0];
     orderedSensorValues[1][9]=muxValues[4][5][0];
 //barra3
-    orderedSensorValues[2][0]=muxValues[3][2][4];//sensor mas lejano a middle
+    orderedSensorValues[2][0]=muxValues[3][2][4];//sensor farthest from middle
     orderedSensorValues[2][1]=muxValues[3][2][6];
     orderedSensorValues[2][2]=muxValues[3][2][7];
     orderedSensorValues[2][3]=muxValues[3][2][5];
@@ -9460,7 +9460,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[2][8]=muxValues[4][3][0];
     orderedSensorValues[2][9]=muxValues[4][0][0];
 //barra4
-    orderedSensorValues[3][0]=muxValues[3][4][4];//sensor mas lejano a middle
+    orderedSensorValues[3][0]=muxValues[3][4][4];//sensor farthest from middle
     orderedSensorValues[3][1]=muxValues[3][4][6];
     orderedSensorValues[3][2]=muxValues[3][4][7];
     orderedSensorValues[3][3]=muxValues[3][4][5];
@@ -9471,7 +9471,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[3][8]=muxValues[3][6][0];
     orderedSensorValues[3][9]=muxValues[3][1][0];
 //barra5
-    orderedSensorValues[4][0]=muxValues[3][3][4];//sensor mas lejano a middle
+    orderedSensorValues[4][0]=muxValues[3][3][4];//sensor farthest from middle
     orderedSensorValues[4][1]=muxValues[3][3][6];
     orderedSensorValues[4][2]=muxValues[3][3][7];
     orderedSensorValues[4][3]=muxValues[3][3][5];
@@ -9482,7 +9482,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[4][8]=muxValues[3][0][0];
     orderedSensorValues[4][9]=muxValues[3][5][0];
 //barra6
-    orderedSensorValues[5][0]=muxValues[2][1][4];//sensor mas lejano a middle
+    orderedSensorValues[5][0]=muxValues[2][1][4];//sensor farthest from middle
     orderedSensorValues[5][1]=muxValues[2][1][6];
     orderedSensorValues[5][2]=muxValues[2][1][7];
     orderedSensorValues[5][3]=muxValues[2][1][5];
@@ -9493,7 +9493,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[5][8]=muxValues[2][3][0];
     orderedSensorValues[5][9]=muxValues[2][2][0];
 //barra7
-    orderedSensorValues[6][0]=muxValues[2][0][4];//sensor mas lejano a middle
+    orderedSensorValues[6][0]=muxValues[2][0][4];//sensor farthest from middle
     orderedSensorValues[6][1]=muxValues[2][0][6];
     orderedSensorValues[6][2]=muxValues[2][0][7];
     orderedSensorValues[6][3]=muxValues[2][0][5];
@@ -9504,7 +9504,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[6][8]=muxValues[2][4][0];
     orderedSensorValues[6][9]=muxValues[2][5][0];
 //barra8
-    orderedSensorValues[7][0]=muxValues[1][5][4];//sensor mas lejano a middle
+    orderedSensorValues[7][0]=muxValues[1][5][4];//sensor farthest from middle
     orderedSensorValues[7][1]=muxValues[1][5][6];
     orderedSensorValues[7][2]=muxValues[1][5][7];
     orderedSensorValues[7][3]=muxValues[1][5][5];
@@ -9515,7 +9515,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[7][8]=muxValues[1][2][0];
     orderedSensorValues[7][9]=muxValues[2][6][0];
 //barra9
-    orderedSensorValues[8][0]=muxValues[1][1][4];//sensor mas lejano a middle
+    orderedSensorValues[8][0]=muxValues[1][1][4];//sensor farthest from middle
     orderedSensorValues[8][1]=muxValues[1][1][6];
     orderedSensorValues[8][2]=muxValues[1][1][7];
     orderedSensorValues[8][3]=muxValues[1][1][5];
@@ -9526,7 +9526,7 @@ void detectChessBoardAlgoritmoSensores()
     orderedSensorValues[8][8]=muxValues[1][3][0];
     orderedSensorValues[8][9]=muxValues[1][7][0];
  //barra10
-    orderedSensorValues[9][0]=muxValues[1][6][4];//sensor mas lejano a middleiiiiiiiiiiiiiiiiiiiiiii
+    orderedSensorValues[9][0]=muxValues[1][6][4];//sensor farthest from middle
     orderedSensorValues[9][1]=muxValues[1][6][6];
     orderedSensorValues[9][2]=muxValues[1][6][7];
     orderedSensorValues[9][3]=muxValues[1][6][5];
@@ -9540,7 +9540,7 @@ void detectChessBoardAlgoritmoSensores()
 
 #endif
 
-//================  Pasar el vector a la matriz binaria Temporal=================
+//================  Convert the vector to the binary matrix (Temporary)=================
 int a = 0;
 int b = 9;
 
@@ -9556,7 +9556,7 @@ for (int j = 0; j < 10; j++)
 }
 
 #if PosMatrizSensor == matrizPos1
-//================  Matriz en posicion 1 (Original) =================
+//================  Matrix in position 1 (Original) =================
 for (int j = 0; j < 10; j++)
 {
     for (int i = 0; i < 10; i++)
@@ -9567,7 +9567,7 @@ for (int j = 0; j < 10; j++)
 #endif
 
 #if PosMatrizSensor == matrizPos2
-//================  Matriz en posicion 2 (Rota 90grados en sentido horario) =================
+//================  Matrix in position 2 (Rotated 90 degrees clockwise) =================
  a = 0;
  b = 9;
 for (int j = 0; j < 10; j++)
@@ -9583,7 +9583,7 @@ for (int j = 0; j < 10; j++)
 #endif
 
 #if PosMatrizSensor == matrizPos3
-//================  Matriz en posicion 3 (Rota 180grados en sentido horario) =================
+//================  Matrix in position 3 (Rotated 180 degrees clockwise) =================
  a = 9;
  b = 9;
 for (int j = 0; j < 10; j++)
@@ -9599,7 +9599,7 @@ for (int j = 0; j < 10; j++)
 #endif
 
 #if PosMatrizSensor == matrizPos4
-//================  Matriz en posicion 4 (Rota 270grados en sentido horario) =================
+//================  Matrix in position 4 (Rotated 270 degrees clockwise) =================
  a = 9;
  b = 0;
 for (int j = 0; j < 10; j++)
@@ -9627,17 +9627,17 @@ void testVibrador()
 
 /**================================================================================================
  *                                           moveOnTheLine
- *  Esta funcion mueve piezas a traves de las lineas del tablero para evitar chocar con otras piezas.
- *  Es necesario verificar si la pocision inicial esta fuera del area de juego ya que en esta zona es
- *  necesario hacer un movimiento extra para evitar que la gondola se delice sobre la cara interior de
- * la base del ajedrez.
+ *  This function moves pieces along the board lines to avoid colliding with other pieces.
+ *  It is necessary to check if the initial position is outside the play area, since in this zone
+ *  an extra movement is needed to prevent the gondola from sliding along the inner face of
+ * the chess base.
  *================================================================================================**/
 
 void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro)
 {
 
     int tempElectro;
-    //=======Puntos intermedios para trayectoria del caballo=========
+    //=======Intermediate points for the knight's trajectory=========
     float diferenciaX;
     float diferenciaY;
     float puntoInterX;
@@ -9812,7 +9812,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
 
     #endif
 
-    //Funcion para recorrer mas area del escaque
+    //Function to traverse more area of the square
     //==========================================
     checkAreaChess(xIni, yIni, 6);
     //==========================================
@@ -9840,7 +9840,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
                 vectInterPointsY[1] = puntoInterY;
 
         }
-        //Aqui me falta la condicion en caso de que las coordenadas Y sean las mismas
+        //TODO: Missing condition for the case where Y coordinates are the same
         if(yFin > yIni)    
         {
                 puntoInterX = xIni;
@@ -9867,7 +9867,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
             vectInterPointsX[2] = puntoInterX;
             vectInterPointsY[2] = puntoInterY;
         }
-        //Aqui me falta la condicion en caso de que las coordenadas X sean las mismas
+        //TODO: Missing condition for the case where X coordinates are the same
         if(xFin > xIni)
         {
             puntoInterX = xFin - 25;
@@ -9906,7 +9906,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
                 vectInterPointsX[1] = puntoInterX;
                 vectInterPointsY[1] = puntoInterY;
         }
-        //Aqui me falta la condicion en caso de que las coordenadas X sean las mismas
+        //TODO: Missing condition for the case where X coordinates are the same
         if(xFin > xIni)    
         {
                 puntoInterX = xIni + 25;
@@ -9933,7 +9933,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
             vectInterPointsX[2] = puntoInterX;
             vectInterPointsY[2] = puntoInterY;
         }
-        //Aqui me falta la condicion en caso de que las coordenadas X sean las mismas
+        //TODO: Missing condition for the case where X coordinates are the same
         if(yFin > yIni)
         {
             puntoInterY = yFin - 25;
@@ -10029,8 +10029,8 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
         }
         if(diferenciaX == 0)
         {
-            //El caso donde estan en la misma columna del tablero
-            if(xIni > 0) //Esta condicion es para esquivar los motores
+            //The case where they are in the same board column
+            if(xIni > 0) //This condition is to avoid the motors
             {
                 vectInterPointsX[1] = xIni - 25;
                 vectInterPointsY[1] = yIni;
@@ -10044,7 +10044,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
                 vectInterPointsX[4] = -1;
                 vectInterPointsY[4] = -1;
             }
-            else //El funcionamiento original solo incluia lo siguiente
+            else //The original behavior only included the following
             {
                 vectInterPointsX[1] = xIni + 25;
                 vectInterPointsY[1] = yIni;
@@ -10076,8 +10076,8 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
         }
         if(diferenciaY == 0)
         {
-            //El caso donde estan en la misma columna del tablero
-            if(yIni > 0) //Esta condicion es para esquivar los motores
+            //The case where they are in the same board column
+            if(yIni > 0) //This condition is to avoid the motors
             {
                 vectInterPointsX[1] = xIni;
                 vectInterPointsY[1] = yIni - 25;
@@ -10092,7 +10092,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
                 vectInterPointsY[4] = -1;
 
             }
-            else //El funcionamiento original solo incluia lo siguiente
+            else //The original behavior only included the following
             {
                 vectInterPointsX[1] = xIni;
                 vectInterPointsY[1] = yIni + 25;
@@ -10176,7 +10176,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
     double* apYc7 = &yC7;
 
     #ifdef relacionMicroSteps1
-    int totalPuntosEnCurva = 7;   // Antes 4, para vector de  15
+    int totalPuntosEnCurva = 7;   // Previously X, for vector of  15
     #endif
 
     #ifdef relacionMicroSteps4
@@ -10199,7 +10199,7 @@ void moveOnTheLinev2(double xIni,double yIni,double xFin,double yFin,int Electro
     int totalPuntosEnCurva = 7;   // 
     #endif
 
-    double arrayPuntosX[totalPuntosEnCurva + 1] = {0};   //Se contempla un elemento mas del vector para contemplar desde el punto inicial hasta el punto final de la curva
+    double arrayPuntosX[totalPuntosEnCurva + 1] = {0};   //An extra element is included in the vector to cover from the start point to the end point of the curve
     double arrayPuntosY[totalPuntosEnCurva + 1] = {0};
 
     int indexSpeed = 0;
@@ -10299,7 +10299,7 @@ if((xFin >= -200 &&  xFin <= 200)&&(yFin >= -200 && yFin <= 200))
 }
 else
 {
-    if(xFin <= -200)       //Si va a sacar del lado izquierdo
+    if(xFin <= -200)       //If removing from the left side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10313,7 +10313,7 @@ else
         activateElectromagnetV4E(1);    //Original 4
         Electro = 1;                    //Original 4
     }
-    if(xFin >= 200)        //Si va a sacar del lado derecho
+    if(xFin >= 200)        //If removing from the right side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10327,7 +10327,7 @@ else
         activateElectromagnetV4E(3);    //Original 2
         Electro = 3;                    //Original 2
     }
-    if(yFin <= -200)       //Si va a sacar del lado inferior
+    if(yFin <= -200)       //If removing from the bottom side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10341,7 +10341,7 @@ else
         activateElectromagnetV4E(4);    //Original 3
         Electro = 4;                    //Original 3
     }
-    if(yFin >= 200)        //Si va a sacar del lado superior
+    if(yFin >= 200)        //If removing from the top side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10391,7 +10391,7 @@ else
         Robot.setSpeedRampFunction(vectVelPunto[indexSpeed]);
         Robot.setAccelRampFunction((vectVelPunto[indexSpeed])*2);
         //Robot.accelRamp(arrayPuntosX[0],arrayPuntosY[0],0,0,Electro);
-        if ((xFin <= -200 || xFin >= 200) || (yFin <= -200 || yFin >= 200)) // Condicion, si va a sacar una pieza
+        if ((xFin <= -200 || xFin >= 200) || (yFin <= -200 || yFin >= 200)) // Condition: if removing a piece
         {
             if(diferenciaX < 60 || diferenciaY < 60)
             {
@@ -10399,7 +10399,7 @@ else
             }
             else
             {
-                Robot.accelRamp(arrayPuntosX[0], arrayPuntosY[0], 1, 0, Electro); // En caso de sacar la pieza se dirige a este punto en aceleracion
+                Robot.accelRamp(arrayPuntosX[0], arrayPuntosY[0], 1, 0, Electro); // In case of removing the piece, moves to this point with acceleration
             }
             
         }
@@ -10431,7 +10431,7 @@ if((xIni >= -200 &&  xIni <= 200)&&(yIni >= -200 && yIni <= 200))
 }
 else
 {
-    if(xIni <= -200 && xFin > 150)       //Si va a sacar del lado izquierdo
+    if(xIni <= -200 && xFin > 150)       //If removing from the left side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10444,7 +10444,7 @@ else
         activateElectromagnetV4E(mainElectro);
         Electro = mainElectro;
     }
-    if(xIni >= 200 && xFin < -150)        //Si va a sacar del lado derecho
+    if(xIni >= 200 && xFin < -150)        //If removing from the right side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10457,7 +10457,7 @@ else
         activateElectromagnetV4E(mainElectro);
         Electro = mainElectro;
     }
-    if(yIni <= -200 && yFin > 150)       //Si va a sacar del lado inferior
+    if(yIni <= -200 && yFin > 150)       //If removing from the bottom side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10470,7 +10470,7 @@ else
         activateElectromagnetV4E(mainElectro);
         Electro = mainElectro;
     }
-    if(yIni >= 200 && yFin < -150)        //Si va a sacar del lado superior
+    if(yIni >= 200 && yFin < -150)        //If removing from the top side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10655,7 +10655,7 @@ if((xFin >= -200 &&  xFin <= 200)&&(yFin >= -200 && yFin <= 200))
 }
 else
 {
-    if(xFin <= -200)       //Si va a sacar del lado izquierdo
+    if(xFin <= -200)       //If removing from the left side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10669,7 +10669,7 @@ else
         activateElectromagnetV4E(1);    //Original 4
         Electro = 1;                    //Original 4
     }
-    if(xFin >= 200)        //Si va a sacar del lado derecho
+    if(xFin >= 200)        //If removing from the right side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10683,7 +10683,7 @@ else
         activateElectromagnetV4E(3);    //Original 2
         Electro = 3;                    //Original 2
     }
-    if(yFin <= -200)       //Si va a sacar del lado inferior
+    if(yFin <= -200)       //If removing from the bottom side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10697,7 +10697,7 @@ else
         activateElectromagnetV4E(4);    //Original 3
         Electro = 4;                    //Original 3
     }
-    if(yFin >= 200)        //Si va a sacar del lado superior
+    if(yFin >= 200)        //If removing from the top side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10738,9 +10738,9 @@ else
         Robot.setAccelRampFunction((vectVelPunto[indexSpeed])*2);
         if (i == 0)
         {
-            if ((xFin <= -200 || xFin >= 200) || (yFin <= -200 || yFin >= 200)) // Condicion, si va a sacar una pieza
+            if ((xFin <= -200 || xFin >= 200) || (yFin <= -200 || yFin >= 200)) // Condition: if removing a piece
             {
-                Robot.accelRamp(arrayPuntosX[i], arrayPuntosY[i], 1, 0, Electro); // En caso de sacar la pieza se dirige a este punto en aceleracion
+                Robot.accelRamp(arrayPuntosX[i], arrayPuntosY[i], 1, 0, Electro); // In case of removing the piece, moves to this point with acceleration
             }
             else
             {
@@ -10797,7 +10797,7 @@ else
         if((xIni <= -200 || xIni >= 200) || (yIni <= -200 || yIni >= 200))
         {
             //Robot.accelRamp(arrayPuntosX[0],arrayPuntosY[0],-1,0,Electro); //Antes
-            Robot.accelRamp(arrayPuntosX[0],arrayPuntosY[0],0,0,Electro);             //Cambio para problema de que desacelera antes de llegar all final
+            Robot.accelRamp(arrayPuntosX[0],arrayPuntosY[0],0,0,Electro);             //Fix for the issue of decelerating before reaching the end
         }
         else
         {
@@ -10812,7 +10812,7 @@ else
         }
         else
         {
-    if (xIni <= -200 && xFin > 150) // Si va a meter desde el lado izquierdo
+    if (xIni <= -200 && xFin > 150) // If inserting from the left side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10825,7 +10825,7 @@ else
         activateElectromagnetV4E(mainElectro);
         Electro = mainElectro;
     }
-    if (xIni >= 200 && xFin < -150) // Si va a meter desde el lado derecho
+    if (xIni >= 200 && xFin < -150) // If inserting from the right side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10838,7 +10838,7 @@ else
         activateElectromagnetV4E(mainElectro);
         Electro = mainElectro;
     }
-    if (yIni <= -200 && yFin > 150) // Si va a meter desde el lado inferior
+    if (yIni <= -200 && yFin > 150) // If inserting from the bottom side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10851,7 +10851,7 @@ else
         activateElectromagnetV4E(mainElectro);
         Electro = mainElectro;
     }
-    if (yIni >= 200 && yFin < -150) // Si va a meter desde el lado superior
+    if (yIni >= 200 && yFin < -150) // If inserting from the top side
     {
         deactivateElectromagnetV4E(Electro);
         tempElectro = Electro;
@@ -10988,7 +10988,7 @@ void puntosDeCurva(double xP1,double yP1,double xP2,double yP2,double xP3,double
     double offsetCurvaX1 = 0;
     double offsetCurvaY1 = 0;
 
-    //Para desfase de 3mm
+    //For a 3mm offset
     offsetCurvaX2 = 24;      //Antes 22
     offsetCurvaY2 = 0.0;     //Antes  offsetCurvaY = 0.2;
 
@@ -11306,12 +11306,12 @@ void reorderAutoForzado()
                 }
                 #endif
                 detectChessBoard();
-                resultContPiezas = contChessSensors(); //Devuelve 1 si estan todas las piezas 0 si faltan piezas en el tablero
+                resultContPiezas = contChessSensors(); //Returns 1 if all pieces are present, 0 if pieces are missing from the board
                 while(resultContPiezas == 0)
                 {
                     delay(100);
                     detectChessBoard();
-                    resultContPiezas = contChessSensors(); //Devuelve 1 si estan todas las piezas 0 si faltan piezas en el tablero
+                    resultContPiezas = contChessSensors(); //Returns 1 if all pieces are present, 0 if pieces are missing from the board
                 }
         
     }
@@ -11790,13 +11790,13 @@ void puntosDeCurvaV2(double xP1,double yP1,double xP2,double yP2,double xP3,doub
    double pCurvaYsinCent;
    double interInRadians;
 
-   //Variables para quitar digitos despues de los decimales en x
+   //Variables to remove digits after the decimal in x
    int integerN1x;
    int integerN2x;
    double extraCentX;
    //-----------------------------------------------------------
 
-   //Variables para quitar digitos despues de los decimales en y
+   //Variables to remove digits after the decimal in y
    int integerN1y;
    int integerN2y;
    double extraCentY;
@@ -11808,7 +11808,7 @@ void puntosDeCurvaV2(double xP1,double yP1,double xP2,double yP2,double xP3,doub
                 interInRadians = ((i) * degreeInterval) * (PI / 180);
                 pCurvaX = 25 * cos(interInRadians);
                 pCurvaY = 25 * sin(interInRadians);
-                // Bloque para eliminar los digitos despues de decimales en coordendas x
+                // Block to remove digits after decimal in x coordinates
                 integerN1x = pCurvaX;
                 extraCentX = pCurvaX - integerN1x;
                 extraCentX = extraCentX * 10;
@@ -11817,7 +11817,7 @@ void puntosDeCurvaV2(double xP1,double yP1,double xP2,double yP2,double xP3,doub
                 extraCentX = extraCentX / 10;
                 pCurvaXsinCent = pCurvaX - extraCentX;
                 //--------------------------------------------------------------------
-                // Bloque para eliminar los digitos despues de decimales en coordendas y
+                // Block to remove digits after decimal in y coordinates
                 integerN1y = pCurvaY;
                 extraCentY = pCurvaY - integerN1y;
                 extraCentY = extraCentY * 10;
@@ -12148,7 +12148,7 @@ int detectChangeTestSensors()
     }
     if (colocaPieza == 1)
     {
-        //La funcion de pureba de vibrador se debe agregar aqui
+        //The buzzer test function should be added here
         //testVibrador();
         for (int j = 0; j < 10; j++)
         {
@@ -12203,7 +12203,7 @@ void medirDesfase()
 
     sensorsDir();
 
-    //Algoritmo para buscar el punto medio sobre el eje x
+    //Algorithm to find the midpoint on the x-axis
     //detectChessBoardVerif();
     detectChessBoardAlgoritmoSensores();
     
@@ -12258,7 +12258,7 @@ void medirDesfase()
     Robot.setSpeedRampFunction(8000);
     #endif
     #endif
-    // Recorrrido en eje x
+    // Traversal along x-axis
     while (matrizBinVerif[8][4] == 1)  //Antes [8][1]
     {
         //detectChessBoardVerif();
@@ -12398,7 +12398,7 @@ void medirDesfase()
     #endif
 
 
-    //Algoritmo para buscar el punto medio sobre el eje y
+    //Algorithm to find the midpoint on the y-axis
     pasosEnX = 25;
     pasosEnY = 0;  
 
@@ -12456,7 +12456,7 @@ void medirDesfase()
     Robot.setSpeedRampFunction(8000);
     #endif
     #endif
-    // Recorrrido en eje x
+    // Traversal along x-axis
     while (matrizBinVerif[5][3] == 1)   //Antes [8][1]
     {
         //detectChessBoardVerif();
