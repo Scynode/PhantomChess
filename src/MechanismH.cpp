@@ -42,7 +42,7 @@ this function compute the steps needed for the two motors to move using the H-FR
 */
 void MechanismH::moveToPoint(double xlocal, double ylocal, int bCompens){
 
-    //Aplica la compensacion del nuevo algoritmo para centrar electroiman con los sensores
+    //Applies the compensation of the new algorithm to center the electromagnet with the sensors
     #ifdef activateSensors
     xlocal = xlocal + desfaseEnX;
     ylocal = ylocal + desfaseEnY; 
@@ -76,7 +76,7 @@ Serial.println(ylocal);
     double twoTimesPi = 2 * MyPI;
 
     //------------------------------------------------------------------------------------------//
-    //Para calcular sin usar Pi, consideando que la vuelta de la polea es de 40mm
+    //To calculate without using Pi, considering that the pulley revolution is 40mm
     /* double revolutionpermm1 = 0;
   double revolutionpermm2 = 0;
 */
@@ -109,14 +109,14 @@ Serial.println(ylocal);
   
 //------------------------------
 //Asigning positions to our Matrix mulsteppers mover. USANDO POLEA DE 40MM 
-    positions[0] = numberofSteps3; // Pasos_totales1;
+    positions[0] = numberofSteps3; // Total_steps1;
     positions[1] = numberofSteps4;
 //------------------------------
 //Librarys moves steppers until tehy are on position.
     steppers.moveTo(positions);
     steppers.runSpeedToPosition();
 
-    //Alamacena la posicion actual para usarla en el siguiente movimiento como dato anterior
+    //Stores the current position to use it in the next movement as previous data
     valueA = xlocal;
     xActual = xlocal;
     
@@ -218,7 +218,7 @@ void MechanismH::init()
 
 
 /*/
-//Test de recorrer varias posiciones a la misma velocidad
+//Test of traversing several positions at the same speed
 //======================================================= 
 long positions[2]; // Array of desired stepper positions
 for (int i = 0; i < 75; i++)
@@ -231,7 +231,7 @@ for (int i = 0; i < 75; i++)
 */
 
 //=======================================================
-     //=====Agregado para lo de la calibracion intermedia===
+     //=====Added for intermediate calibration===
       xActual = 0;
       yActual = 0;     
       //====================================================
@@ -279,7 +279,7 @@ void MechanismH::setAccelRampFunction(double AccelMotors)
 void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandElectro, int numElectro)
 {
 
-//Desfases para la rotacion Original
+//Offsets for the original rotation
 /*
   if(numElectro == 1)
   {
@@ -302,7 +302,7 @@ void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandE
   }
   */
 
-  //Desfases para la rotacion a 90 grados
+  //Offsets for 90-degree rotation
   if(numElectro == 1)
   {
     xlocal = xlocal + 20;   //
@@ -357,7 +357,7 @@ void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandE
       double twoTimesPi = 2 * MyPI;
 
       //------------------------------------------------------------------------------------------//
-      // Para calcular sin usar Pi, consideando que la vuelta de la polea es de 40mm
+      // To calculate without using Pi, considering that the pulley revolution is 40mm
       // double revolutionpermm1 = 0;
     //double revolutionpermm2 = 0;
     //
@@ -367,7 +367,7 @@ void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandE
 
       long positions[2];
 
-      // Aplica la compensacion del nuevo algoritmo para centrar electroiman con los sensores
+      // Applies the compensation of the new algorithm to center the electromagnet with the sensors
 #ifdef activateSensors
       xlocal = xlocal + desfaseEnX;
       ylocal = ylocal + desfaseEnY;
@@ -383,15 +383,15 @@ void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandE
       numberofSteps2 = (Tetha2 / (twoTimesPi)) * neededStepsfor1Turn * -1;
 
       //------------------------------------------------------------------------------------------//
-      // Pruebas USANDO POLEA DE 40MNM
+      // Tests USING 40MM PULLEY
 
       //revolutionpermm1 = (-(xlocal/40)+(ylocal/40));
       //revolutionpermm2 = (-(xlocal/40)-(ylocal/40));
       //
 #ifdef relacionMicroSteps1
 #ifdef CambiosPCBTavo
-  numberofSteps3 = ((-(xlocal * 5) - (ylocal * 5))) * -1;    //Para mi configuracion numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
-  numberofSteps4 = ((-(xlocal * 5) + (ylocal * 5))) * -1;    //Para mi configuracion numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
+  numberofSteps3 = ((-(xlocal * 5) - (ylocal * 5))) * -1;    //For my configuration numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
+  numberofSteps4 = ((-(xlocal * 5) + (ylocal * 5))) * -1;    //For my configuration numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
   #endif
 #ifdef CambiosPCBLalo
   numberofSteps3 = ((-(xlocal * 5) - (ylocal * 5))) * -1;
@@ -402,8 +402,8 @@ void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandE
 
 #ifdef relacionMicroSteps4
 #ifdef CambiosPCBTavo
-  numberofSteps3 = ((-(xlocal * 20) - (ylocal * 20))) * -1;    //Para mi configuracion numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
-  numberofSteps4 = ((-(xlocal * 20) + (ylocal * 20))) * -1;    //Para mi configuracion numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
+  numberofSteps3 = ((-(xlocal * 20) - (ylocal * 20))) * -1;    //For my configuration numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
+  numberofSteps4 = ((-(xlocal * 20) + (ylocal * 20))) * -1;    //For my configuration numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
   #endif
 #ifdef CambiosPCBLalo
   numberofSteps3 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
@@ -423,8 +423,8 @@ void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandE
 
 #ifdef relacionMicroSteps64
 #ifdef CambiosPCBTavo
-  numberofSteps3 = ((-(xlocal * 320) + (ylocal * 320))) * 1;    //Para mi configuracion numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
-  numberofSteps4 = ((-(xlocal * 320) - (ylocal * 320))) * 1;    //Para mi configuracion numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
+  numberofSteps3 = ((-(xlocal * 320) + (ylocal * 320))) * 1;    //For my configuration numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
+  numberofSteps4 = ((-(xlocal * 320) - (ylocal * 320))) * 1;    //For my configuration numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
   #endif
 #ifdef CambiosPCBLalo
   numberofSteps3 = ((-(xlocal * 320) + (ylocal * 320))) * 1;
@@ -435,8 +435,8 @@ void MechanismH::accelRamp(double xlocal, double ylocal, int typeMove, int bandE
 
 #ifdef relacionMicroSteps128
 #ifdef CambiosPCBTavo
-  numberofSteps3 = ((-(xlocal * 640) + (ylocal * 640))) * 1;    //Para mi configuracion numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
-  numberofSteps4 = ((-(xlocal * 640) - (ylocal * 640))) * 1;    //Para mi configuracion numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
+  numberofSteps3 = ((-(xlocal * 640) + (ylocal * 640))) * 1;    //For my configuration numberofSteps3 = ((-(xlocal * 20) + (ylocal * 20))) * -1; 
+  numberofSteps4 = ((-(xlocal * 640) - (ylocal * 640))) * 1;    //For my configuration numberofSteps4 = ((-(xlocal * 20) - (ylocal * 20))) * -1;
   #endif
 #ifdef CambiosPCBLalo
   numberofSteps3 = ((-(xlocal * 640) + (ylocal * 640))) * 1;
@@ -465,7 +465,7 @@ Serial.println("Coordenadas destino");
   Serial.println("yActual");
   Serial.println(ylocal);
   */
-#ifdef accelRampDebug //Ultimo mensaje que se comento en esta funcion, para ver solo las impresiones de los tableros virtuales y las jugadas
+#ifdef accelRampDebug //Last message commented out in this function, to see only the virtual board prints and moves
   Serial.println("DATOS PARA CALCULO DE POSICION ELECTROIMAN");
   Serial.println("============================================");
 
@@ -511,8 +511,8 @@ Serial.println("Coordenadas destino");
   
 
    //=================================================================
-     //Se van a calcular las coordenadas objetivo previas a la posicion final 
-     //con el desfase definido enn la variable "desfaseElectroiman" dada en mm
+     //The target coordinates prior to the final position will be calculated
+     //with the offset defined in the variable "desfaseElectroiman" given in mm
     
     double compXanterior = 0;
     double compYanterior = 0;
@@ -568,7 +568,7 @@ Serial.println("Coordenadas destino");
   double numberofStepsM4 = 0;
   //------------------------------------------------------------------------------------------//
 
-   //Aplica la compensacion del nuevo algoritmo para centrar electroiman con los sensores
+   //Applies the compensation of the new algorithm to center the electromagnet with the sensors
     #ifdef activateSensors
     //xlocal = xlocal + desfaseEnX;
     //ylocal = ylocal + desfaseEnY;
@@ -650,8 +650,8 @@ Serial.println("Coordenadas destino");
   tempStepsPrev2 = numberofSteps4;
 
   
-  velocidadDef = globalSpeed;    //32000 8000 Velocidad en steps/segundo     //Maxima velocidad 8,000      -Minima 300 (un 5 porciento de la aceleracion definida)
-  aceleracionDef = globalAccel;  //32000 16000 Aceleracion en steps/segundo^2   //Maxima aceleracion 32,000
+  velocidadDef = globalSpeed;    //32000 8000 Speed in steps/second     //Maximum speed 8,000      -Minimum 300 (5 percent of the defined acceleration)
+  aceleracionDef = globalAccel;  //32000 16000 Acceleration in steps/second^2   //Maximum acceleration 32,000
   
   #ifdef relacionMicroSteps1
   minSpeed = (aceleracionDef/10)*2;
@@ -723,19 +723,19 @@ Serial.println("Coordenadas destino");
   #ifdef pinoutv2
   if(numberofSteps3 >= 0)
   {
-    stepper1.setPinsInverted(true);   //Para mi configuracion true
+    stepper1.setPinsInverted(true);   //For my configuration true
   }
   else
   {
-    stepper1.setPinsInverted(false);  // Para mi configuracion false
+    stepper1.setPinsInverted(false);  // For my configuration false
   }
   if(numberofSteps4 >= 0)
   {
-    stepper2.setPinsInverted(false);   //Para mi configuracion true
+    stepper2.setPinsInverted(false);   //For my configuration true
   }
   else
   {
-    stepper2.setPinsInverted(true);  //Para mi configuracion false
+    stepper2.setPinsInverted(true);  //For my configuration false
   }
   #endif
 
@@ -758,13 +758,13 @@ Serial.println("Coordenadas destino");
   }
   #endif
 
-  accelStepsM1 = abs(numberofSteps3);   //Pasos que debe dar el motor 1 para llegar a la coordenada objetivo
-  accelStepsM2 = abs(numberofSteps4);   //Pasos que debe dar el motor 2 para llegar a la coordenada objetivo
+  accelStepsM1 = abs(numberofSteps3);   //Steps motor 1 must take to reach the target coordinate
+  accelStepsM2 = abs(numberofSteps4);   //Steps motor 2 must take to reach the target coordinate
 
   accelStepsM1 = round(accelStepsM1);
   accelStepsM2 = round(accelStepsM2);
 
-  //tiempoEnAceleracion = (velocidadDef/aceleracionDef);    //calculamos cuanto tiempo le toma alcanzar la velocidad definida
+  //tiempoEnAceleracion = (velocidadDef/aceleracionDef);    //calculates how long it takes to reach the defined speed
   
   float speedTest;
 
@@ -812,8 +812,8 @@ if(typeMove == 1)
 
   if (accelStepsM1 > accelStepsM2)
   {
-    // La mayor distancia la recorre el motor 1
-    relacionDeDistancias = abs(accelStepsM2 / accelStepsM1); // Me da la relacion para saber que tan lento debe ir el motor 2 respecto del 1
+    // The motor 1 travels the greater distance
+    relacionDeDistancias = abs(accelStepsM2 / accelStepsM1); // Gives the ratio to determine how much slower motor 2 should go relative to motor 1
     // Serial.print("Relacion de distancias: ");
     // Serial.println(relacionDeDistancias);
     speedLimitM2 = velocidadDef * relacionDeDistancias;
@@ -822,7 +822,7 @@ if(typeMove == 1)
   }
   else
   {
-    // La mayor distancia la recorre el motor 2
+    // The motor 2 travels the greater distance
     relacionDeDistancias = abs(accelStepsM1 / accelStepsM2);
 
     speedLimitM1 = velocidadDef * relacionDeDistancias;
@@ -838,7 +838,7 @@ if(typeMove == 1)
     #endif
   }
 
-  //aumentoVelCada10ms = (aceleracionDef/100);              //calculamos el aumento de la velocidad cada 10ms
+  //aumentoVelCada10ms = (aceleracionDef/100);              //calculates the speed increase every 10ms
   #ifdef relacionMicroSteps1
    aumentoVelCada10msM1 = (accelM1/10);               
    aumentoVelCada10msM2 = (accelM2/10);
@@ -874,7 +874,7 @@ if(typeMove == 1)
    Serial.println("aumentoVelCada10msM2");
    Serial.println(aumentoVelCada10msM2);   
    #endif 
-//============= Movimiento en aceleracion hasta alcanzar la velocidad definida o la posicion ebjetivo ========================
+//============= Movement in acceleration until reaching the defined speed or target position ========================
 
   while (true)
   {
@@ -932,7 +932,7 @@ if(typeMove == 1)
   Serial.println(speedM2);
   #endif
 
-  //======================  Movimiento en aceleracion constante  ====================================
+  //======================  Movement at constant acceleration  ====================================
   if (stepper1.currentPosition() != accelStepsM1 || stepper2.currentPosition() != accelStepsM2)
   {
     while (true)
@@ -957,7 +957,7 @@ if(typeMove == 1)
       {
         stepper2.runSpeed();
       }
-      if (((stepper1.currentPosition() == accelStepsM1) && (stepper2.currentPosition() == accelStepsM2))) // checar condicion, buscar que estas condicionnes dependan de ambos motores
+      if (((stepper1.currentPosition() == accelStepsM1) && (stepper2.currentPosition() == accelStepsM2))) // check condition, ensure these conditions depend on both motors
       {
         break;
       }
@@ -984,20 +984,20 @@ if(typeMove == 0)
 
   if (accelStepsM1 > accelStepsM2)
   {
-    // La mayor distancia la recorre el motor 1
+    // The motor 1 travels the greater distance
     relacionDeDistancias = abs(accelStepsM2 / accelStepsM1);
     speedM2 = speedM2 * relacionDeDistancias;
   }
   else
   {
-    // La mayor distancia la recorre el motor 2
+    // The motor 2 travels the greater distance
     relacionDeDistancias = abs(accelStepsM1 / accelStepsM2);
     speedM1 = speedM1 * relacionDeDistancias;
   }
   stepper1.setSpeed(speedM1);
   stepper2.setSpeed(speedM2);
 
-  //========  Movimiento en aceleracion constante  ========
+  //========  Movement at constant acceleration  ========
   if (stepper1.currentPosition() != accelStepsM1 || stepper2.currentPosition() != accelStepsM2)
   {
     while (true)
@@ -1021,7 +1021,7 @@ if(typeMove == 0)
       {
         stepper2.runSpeed();
       }
-      if (((stepper1.currentPosition() == accelStepsM1) && (stepper2.currentPosition() == accelStepsM2))) // checar condicion, buscar que estas condicionnes dependan de ambos motores
+      if (((stepper1.currentPosition() == accelStepsM1) && (stepper2.currentPosition() == accelStepsM2))) // check condition, ensure these conditions depend on both motors
       {
         break;
       }
@@ -1053,21 +1053,21 @@ if(typeMove == -1)
   speedM1 = velocidadDef;
   speedM2 = velocidadDef;
 
-  // se calcula la relacion de velocidades para que ambos motores
+  // the speed ratio is calculated so that both motors
   if (accelStepsM1 > accelStepsM2)
   {
-    // La mayor distancia la recorre el motor 1
+    // The motor 1 travels the greater distance
     relacionDeDistancias = abs(accelStepsM2 / accelStepsM1);
     speedM2 = speedM2 * relacionDeDistancias;
   }
   else
   {
-    // La mayor distancia la recorre el motor 2
+    // The motor 2 travels the greater distance
     relacionDeDistancias = abs(accelStepsM1 / accelStepsM2);
     speedM1 = speedM1 * relacionDeDistancias;
   }
 
-  // Se calculan los pasos que debera recorrer cada motor en desaceleracion.
+  // The steps each motor must travel during deceleration are calculated.
   tiempoEnAceleracionM1 = velocidadDef / aceleracionDef;
   totalLapseTimesM1 = tiempoEnAceleracionM1 / lapseTime;
   aumentoVelCada10msM1 = speedM1 / totalLapseTimesM1;
@@ -1114,7 +1114,7 @@ if(typeMove == -1)
   //===========================================================
   stepper1.setSpeed(speedM1);
   stepper2.setSpeed(speedM2);
-  //========  Movimiento en aceleracion constante  ========
+  //========  Movement at constant acceleration  ========
   if (stepper1.currentPosition() != stepsEnAcelCteM1 || stepper2.currentPosition() != stepsEnAcelCteM2)
   {
     while (true)
@@ -1138,7 +1138,7 @@ if(typeMove == -1)
       {
         stepper2.runSpeed();
       }
-      if (((stepper1.currentPosition() >= stepsEnAcelCteM1) && (stepper2.currentPosition() >= stepsEnAcelCteM2))) // checar condicion, buscar que estas condicionnes dependan de ambos motores
+      if (((stepper1.currentPosition() >= stepsEnAcelCteM1) && (stepper2.currentPosition() >= stepsEnAcelCteM2))) // check condition, ensure these conditions depend on both motors
       {
         break;
       }
@@ -1151,7 +1151,7 @@ if(typeMove == -1)
   Serial.println(stepper2.currentPosition());
 #endif
 
-  //============= Movimiento en desaceleracion hasta alcanzar la velocidad definida o la posicion ebjetivo ========================
+  //============= Movement in deceleration until reaching the defined speed or target position ========================
 
   while (true)
   {
@@ -1238,8 +1238,8 @@ if(typeMove == 2)
 
   if (accelStepsM1 > accelStepsM2)
   {
-    // La mayor distancia la recorre el motor 1
-    relacionDeDistancias = abs(accelStepsM2 / accelStepsM1); // Me da la relacion para saber que tan lento debe ir el motor 2 respecto del 1
+    // The motor 1 travels the greater distance
+    relacionDeDistancias = abs(accelStepsM2 / accelStepsM1); // Gives the ratio to determine how much slower motor 2 should go relative to motor 1
     // Serial.print("Relacion de distancias: ");
     // Serial.println(relacionDeDistancias);
     speedLimitM2 = velocidadDef * relacionDeDistancias;
@@ -1248,7 +1248,7 @@ if(typeMove == 2)
   }
   else
   {
-    // La mayor distancia la recorre el motor 2
+    // The motor 2 travels the greater distance
     relacionDeDistancias = abs(accelStepsM1 / accelStepsM2);
 
     speedLimitM1 = velocidadDef * relacionDeDistancias;
@@ -1268,7 +1268,7 @@ if(typeMove == 2)
     #endif
   }
 
-  //aumentoVelCada10ms = (aceleracionDef/100);              //calculamos el aumento de la velocidad cada 10ms
+  //aumentoVelCada10ms = (aceleracionDef/100);              //calculates the speed increase every 10ms
    #ifdef relacionMicroSteps1
    aumentoVelCada10msM1 = (accelM1/10);               
    aumentoVelCada10msM2 = (accelM2/10);
@@ -1304,11 +1304,11 @@ if(typeMove == 2)
    Serial.println("aumentoVelCada10msM2");
    Serial.println(aumentoVelCada10msM2);   
    #endif 
-//============= Movimiento en aceleracion hasta alcanzar la velocidad definida o la posicion ebjetivo ========================
+//============= Movement in acceleration until reaching the defined speed or target position ========================
 
   while (true)
   {
-    //------------------Condiciones para activar electroiman-----------
+    //------------------Conditions to activate the electromagnet-----------
     if (bandElectro == 1)
     {
       if (bandElectromagnet == 0)
@@ -1381,12 +1381,12 @@ if(typeMove == 2)
   pasosEnAcelereacionM1 = stepper1.currentPosition();
   pasosEnAcelereacionM2 = stepper2.currentPosition();
 
-  //======================  Movimiento en aceleracion constante  ====================================
+  //======================  Movement at constant acceleration  ====================================
   if (stepper1.currentPosition() < puntoMedioTrayectoriaM1 || stepper2.currentPosition() < puntoMedioTrayectoriaM2)
   {
     while (true)
     {
-      //------------------Condiciones para activar electroiman-----------
+      //------------------Conditions to activate the electromagnet-----------
       if (bandElectro == 1)
       {
         if (bandElectromagnet == 0)
@@ -1422,7 +1422,7 @@ if(typeMove == 2)
       {
         stepper2.runSpeed();
       }
-      if (((stepper1.currentPosition() >= puntoMedioTrayectoriaM1) && (stepper2.currentPosition() >= puntoMedioTrayectoriaM2))) // checar condicion, buscar que estas condicionnes dependan de ambos motores
+      if (((stepper1.currentPosition() >= puntoMedioTrayectoriaM1) && (stepper2.currentPosition() >= puntoMedioTrayectoriaM2))) // check condition, ensure these conditions depend on both motors
       {
         break;
       }
@@ -1448,12 +1448,12 @@ if(typeMove == 2)
   stepper1.setSpeed(speedM1);
   stepper2.setSpeed(speedM2);
 
-  //======================  Movimiento en aceleracion constante segunda mitad ====================================
+  //======================  Movement at constant acceleration second half ====================================
   if (stepper1.currentPosition() < limiteAccelCteM1 || stepper2.currentPosition() < limiteAccelCteM2)
   {
     while (true)
     {
-      //------------------Condiciones para activar electroiman-----------
+      //------------------Conditions to activate the electromagnet-----------
       if (bandElectro == 1)
       {
         if (bandElectromagnet == 0)
@@ -1489,7 +1489,7 @@ if(typeMove == 2)
       {
         stepper2.runSpeed();
       }
-      if (((stepper1.currentPosition() >= limiteAccelCteM1) && (stepper2.currentPosition() >= limiteAccelCteM2))) // checar condicion, buscar que estas condicionnes dependan de ambos motores
+      if (((stepper1.currentPosition() >= limiteAccelCteM1) && (stepper2.currentPosition() >= limiteAccelCteM2))) // check condition, ensure these conditions depend on both motors
       {
         break;
       }
@@ -1507,7 +1507,7 @@ if(typeMove == 2)
     while (true)
     {
 
-      //------------------Condiciones para activar electroiman-----------
+      //------------------Conditions to activate the electromagnet-----------
       if (bandElectro == 1)
       {
         if (bandElectromagnet == 0)
@@ -1614,7 +1614,7 @@ void deactivateElectromag()
     // attach the channel to the GPIO to be controlled
     ledcAttachPin(LED_PIN, ledChannel);
     
-    ledcWrite(ledChannel, 1);   //ANTES 1
+    ledcWrite(ledChannel, 1);   //PREVIOUSLY 1
     #endif
     #ifdef pinoutv2
     // setting PWM properties
@@ -1628,7 +1628,7 @@ void deactivateElectromag()
     // attach the channel to the GPIO to be controlled
     ledcAttachPin(LED_PIN, ledChannel);
     
-    ledcWrite(ledChannel, 253);   //ANTES 1
+    ledcWrite(ledChannel, 253);   //PREVIOUSLY 1
     #endif
 }
 
@@ -1647,7 +1647,7 @@ void deactivateElectromagV4E(int Electro)
     // attach the channel to the GPIO to be controlled
     ledcAttachPin(LED_PIN, ledChannel);
     
-    ledcWrite(ledChannel, 1);   //ANTES 1
+    ledcWrite(ledChannel, 1);   //PREVIOUSLY 1
     #endif
     #ifdef pinoutv2
     // setting PWM properties
@@ -1730,7 +1730,7 @@ void deactivateElectromagV4E(int Electro)
     }
     #endif
     
-    //ledcWrite(ledChannel, 253);   //ANTES 1
+    //ledcWrite(ledChannel, 253);   //PREVIOUSLY 1
     #endif
 
     ledcDetachPin(magnet1);
@@ -1743,7 +1743,7 @@ void deactivateElectromagV4E(int Electro)
 void MechanismH::moveToPointV2(double xlocal, double ylocal,int bCompens)
 {
 
-// Aplica la compensacion del nuevo algoritmo para centrar electroiman con los sensores
+// Applies the compensation of the new algorithm to center the electromagnet with the sensors
 #ifdef activateSensors
   xlocal = xlocal + desfaseEnX;
   ylocal = ylocal + desfaseEnY;
@@ -1778,7 +1778,7 @@ void MechanismH::moveToPointV2(double xlocal, double ylocal,int bCompens)
   double twoTimesPi = 2 * MyPI;
 
   //------------------------------------------------------------------------------------------//
-  // Para calcular sin usar Pi, consideando que la vuelta de la polea es de 40mm
+  // To calculate without using Pi, considering that the pulley revolution is 40mm
   /* double revolutionpermm1 = 0;
   double revolutionpermm2 = 0;
   */
@@ -1842,7 +1842,7 @@ void MechanismH::moveToPointV2(double xlocal, double ylocal,int bCompens)
   Serial.println(numberofSteps4);
 #endif
 
-  positions[0] = numberofSteps3; // Pasos_totales1;
+  positions[0] = numberofSteps3; // Total_steps1;
   positions[1] = numberofSteps4;
   
   //------------------------------
@@ -1864,7 +1864,7 @@ void MechanismH::moveToPointV2(double xlocal, double ylocal,int bCompens)
 
 //================================================
 
-  // Alamacena la posicion actual para usarla en el siguiente movimiento como dato anterior
+  // Stores the current position to use it in the next movement as previous data
   valueA = xlocal;
   xActual = xlocal;
 

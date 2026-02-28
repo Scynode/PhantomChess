@@ -16,7 +16,7 @@
  * @class Calibration
  * @brief .
  * 
- * Esta clase .
+ * This class .
  * 
  */
 class MechanismH{

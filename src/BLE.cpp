@@ -220,7 +220,7 @@ extern  String  bluetoothNameGlobal;
 
 String actualBluetoothMessage = "";
 String newBluetoothMessage = "";
-String globalModeChess = "1";  //Si es cero se queda esperando a que se seleccione un modo, 1 lo hara entrar en automatico al modo escultura
+String globalModeChess = "1";  //If zero, it waits for a mode to be selected; 1 will automatically enter sculpture mode
 
 
 extern int checkInstruction;
@@ -234,13 +234,13 @@ char        buffer[10000];
 char        *pointerB;
 int         bufferSize;
 
-//Definiciones para la transmicion por ota
+//Definitions for OTA transmission
 
 bool updateFlag = false;
 esp_ota_handle_t otaHandler = 0;
 
 
-//========== Declaracion de las caracteristicas para chess NewCharacteristic (1) ============
+//========== Declaration of characteristics for chess NewCharacteristic (1) ============
 //General
 BLECharacteristic *generalCharacteristic_name;
 BLECharacteristic *generalCharacteristic_errorMsg;
@@ -254,12 +254,12 @@ BLECharacteristic *generalCharacteristic_change_mode_2_play;
 
 
 
-//Actualizacion por Ota
+//OTA Update
 BLECharacteristic *fileCharacteristic_receiveOta;
 
 //=============================================================================================
 
-//Declaracion de los Callbacks NewCharacteristic (5)
+//Declaration of Callbacks NewCharacteristic (5)
 //================================Callbacks=============================
 //======================================================================
 
@@ -359,7 +359,7 @@ class generalCallbacks_name : public BLECharacteristicCallbacks
     
 };
 
-//======================== Callbacks para Chess ===========================
+//======================== Callbacks for Chess ===========================
 class generalCallbacks_receive_movement : public BLECharacteristicCallbacks
 {
     void onWrite(BLECharacteristic *characteristic)
@@ -376,7 +376,7 @@ class generalCallbacks_receive_movement : public BLECharacteristicCallbacks
             #endif
             return;
         }
-        // bluetoothNameGlobal = bluetoothName;        //Lo que hacia es que como el nombre del dispositivo bluetooth es valido lo guardaba en la eeeprom
+        // bluetoothNameGlobal = bluetoothName;        //What it did was: since the Bluetooth device name is valid, it was saved to EEPROM
         // romSetBluetoothName(bluetoothNameGlobal);
 
         //Serial.print("WRITE ChessName: ");
@@ -436,7 +436,7 @@ class generalCallbacks_select_mode : public BLECharacteristicCallbacks
         #endif
             return;
         }
-        // bluetoothNameGlobal = bluetoothName;        //Lo que hacia es que como el nombre del dispositivo bluetooth es valido lo guardaba en la eeeprom
+        // bluetoothNameGlobal = bluetoothName;        //What it did was: since the Bluetooth device name is valid, it was saved to EEPROM
         // romSetBluetoothName(bluetoothNameGlobal);
 
         // Serial.print("WRITE ChessName: ");
@@ -602,7 +602,7 @@ int Bluetooth::init(String name){
     
     //=============================================================================
 
-    //Declaracion de las propiedades de las caracteristicas NewCharacteristic (2)
+    //Declaration of characteristic properties NewCharacteristic (2)
     //General
     
 
@@ -616,7 +616,7 @@ int Bluetooth::init(String name){
             NIMBLE_PROPERTY::READ |
             NIMBLE_PROPERTY::NOTIFY);
 
-    //Configuraciones generales de las caracteristicas para chess
+    //General configurations of chess characteristics
     generalCharacteristic_receive_movement = pServiceGeneralConfig->createCharacteristic(
         GENERAL_UUID_RECEIVE_MOVEMENT,
         NIMBLE_PROPERTY::READ |
@@ -643,7 +643,7 @@ int Bluetooth::init(String name){
             NIMBLE_PROPERTY::WRITE);
 */
 
-    //Actualizacion por Ota
+    //OTA Update
     fileCharacteristic_receiveOta = pServiceGeneralConfig->createCharacteristic(
         FILE_UUID_RECEIVE_OTA,
             NIMBLE_PROPERTY::WRITE |
@@ -655,7 +655,7 @@ int Bluetooth::init(String name){
 
     generalCharacteristic_name->setCallbacks(new generalCallbacks_name());
     
-    //======Declaracion de los callbacks de las caracteriticas de chess NewCharacteristic (4)======
+    //======Declaration of chess characteristic callbacks NewCharacteristic (4)======
 
     //General
     generalCharacteristic_receive_movement->setCallbacks(new generalCallbacks_receive_movement());
@@ -665,7 +665,7 @@ int Bluetooth::init(String name){
     //generalCharacteristic_change_mode_2_play->setCallbacks(new generalCallbacks_change_mode_2());
     
     
-    //Actualizacion por Ota
+    //OTA Update
     fileCharacteristic_receiveOta->setCallbacks(new FilesCallbacks_receiveOta());
 
     //=======================================================================
@@ -695,7 +695,7 @@ int Bluetooth::init(String name){
 
 void Bluetooth::setName(String name){
 
-    generalCharacteristic_name->setValue(name);                 //Cambio para libreria NimBLE
+    generalCharacteristic_name->setValue(name);                 //Change for NimBLE library
         Serial.print("SET ble name: ");
         Serial.println(name.c_str());
 }
@@ -725,8 +725,8 @@ void Bluetooth::setStatus(String status){
 
 
     //generalCharacteristic_status->setValue(String(status).c_str());
-    //generalCharacteristic_status->setValue(String(status));    //Cambio para la libreria NimBLE
-    generalCharacteristic_status_board->setValue(status);    //Cambio para la libreria NimBLE
+    //generalCharacteristic_status->setValue(String(status));    //Change for NimBLE library
+    generalCharacteristic_status_board->setValue(status);    //Change for NimBLE library
     
     
     generalCharacteristic_status_board->notify();
